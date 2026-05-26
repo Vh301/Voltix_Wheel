@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useLanguage } from "@/components/language-provider";
+import { TeamAvatarPlaceholder } from "@/components/team-avatar-placeholder";
 import { navItems } from "@/lib/i18n/translations";
 
 function GameScreenshot({
@@ -304,30 +305,9 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section id="roadmap" className="px-6 py-20 md:py-28">
-          <div className="mx-auto max-w-3xl">
-            <h2 className="mb-12 text-center text-3xl font-bold md:text-4xl">
-              {t.roadmap.title}
-            </h2>
-            <ol className="relative flex flex-col gap-0">
-              {t.roadmap.phases.map((phase, i) => (
-                <li
-                  key={phase}
-                  className="relative flex gap-6 border-l-2 border-blue-500/30 pb-10 pl-8 last:pb-0"
-                >
-                  <span className="absolute -left-2.5 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 text-[10px] font-bold text-white">
-                    {i + 1}
-                  </span>
-                  <p className="text-blue-100/90">{phase}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
         <section
           id="brands"
-          className="section-gradient border-t border-blue-500/10 px-6 py-20 md:py-28"
+          className="section-gradient px-6 py-20 md:py-28"
         >
           <div className="mx-auto max-w-6xl">
             <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">
@@ -346,6 +326,66 @@ export function LandingPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section id="team" className="px-6 py-20 md:py-28">
+          <div className="mx-auto max-w-6xl">
+            <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">
+              {t.team.title}
+            </h2>
+            <p className="mx-auto mb-12 max-w-3xl text-center text-blue-100/70">
+              {t.team.subtitle}
+            </p>
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              {t.team.members.map((member) => (
+                <article
+                  key={member.id}
+                  className="glass-card glow-blue flex flex-col overflow-hidden rounded-2xl border-blue-400/20 transition hover:border-cyan-400/35"
+                >
+                  <div className="p-4 pb-0">
+                    <TeamAvatarPlaceholder label={t.team.placeholderLabel} />
+                  </div>
+                  <div className="flex flex-1 flex-col gap-3 p-5 pt-4">
+                    <div>
+                      <h3 className="text-lg font-bold text-cyan-200">
+                        {member.name}
+                      </h3>
+                      <p className="mt-1 text-sm font-semibold text-amber-300">
+                        {member.position}
+                      </p>
+                      <p className="mt-0.5 text-xs font-medium uppercase tracking-wide text-blue-300/70">
+                        {member.role}
+                      </p>
+                    </div>
+                    <p className="text-sm leading-relaxed text-blue-100/70">
+                      {member.description}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="roadmap" className="section-gradient px-6 py-20 md:py-28">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="mb-12 text-center text-3xl font-bold md:text-4xl">
+              {t.roadmap.title}
+            </h2>
+            <ol className="relative flex flex-col gap-0">
+              {t.roadmap.phases.map((phase, i) => (
+                <li
+                  key={phase}
+                  className="relative flex gap-6 border-l-2 border-blue-500/30 pb-10 pl-8 last:pb-0"
+                >
+                  <span className="absolute -left-2.5 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 text-[10px] font-bold text-white">
+                    {i + 1}
+                  </span>
+                  <p className="text-blue-100/90">{phase}</p>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
       </main>

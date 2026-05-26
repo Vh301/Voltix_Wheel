@@ -9,6 +9,7 @@ export type Translation = {
     game: string;
     rewards: string;
     brands: string;
+    team: string;
     roadmap: string;
     community: string;
     spin: string;
@@ -67,6 +68,18 @@ export type Translation = {
     subtitle: string;
     cards: string[];
   };
+  team: {
+    title: string;
+    subtitle: string;
+    placeholderLabel: string;
+    members: Array<{
+      id: string;
+      name: string;
+      position: string;
+      role: string;
+      description: string;
+    }>;
+  };
   footer: {
     tagline: string;
   };
@@ -88,6 +101,7 @@ export const translations: Record<Locale, Translation> = {
       game: "Game",
       rewards: "Rewards",
       brands: "Brands",
+      team: "Team",
       roadmap: "Roadmap",
       community: "Community",
       spin: "Spin",
@@ -230,6 +244,46 @@ export const translations: Record<Locale, Translation> = {
         "Daily pool sponsorships",
       ],
     },
+    team: {
+      title: "The Team Behind Voltix Wheel",
+      subtitle:
+        "Meet the core Voltix Wheel team, represented by official project avatars.",
+      placeholderLabel: "Avatar coming soon",
+      members: [
+        {
+          id: "voltix-core",
+          name: "Voltix Core",
+          position: "Team Lead",
+          role: "Product & Technical Direction",
+          description:
+            "Leads the project roadmap, technical priorities, and product execution. Responsible for keeping Voltix Wheel focused, consistent, and ready for launch.",
+        },
+        {
+          id: "reactor-runner",
+          name: "Reactor Runner",
+          position: "Gameplay Developer",
+          role: "Core Game Mechanics",
+          description:
+            "Builds the gameplay loop: wheel spins, energy generation, boost systems, progression, and reward flow.",
+        },
+        {
+          id: "voltix-spark",
+          name: "Voltix Spark",
+          position: "Frontend & UX Developer",
+          role: "Interface, Landing & User Experience",
+          description:
+            "Shapes the player-facing side of the project: landing page, app screens, interface logic, onboarding, and visual flow.",
+        },
+        {
+          id: "circuit-fox",
+          name: "Circuit Fox",
+          position: "Systems Developer",
+          role: "Backend Logic & Integrations",
+          description:
+            "Handles backend logic, data flow, integrations, reward calculations, and the technical foundation behind the product.",
+        },
+      ],
+    },
     footer: {
       tagline: "Voltix Wheel — Run the wheel. Charge the world.",
     },
@@ -249,6 +303,7 @@ export const translations: Record<Locale, Translation> = {
       game: "Игра",
       rewards: "Награды",
       brands: "Бренды",
+      team: "Команда",
       roadmap: "Дорожная карта",
       community: "Сообщество",
       spin: "Крутить",
@@ -392,6 +447,46 @@ export const translations: Record<Locale, Translation> = {
         "Спонсорство daily pool",
       ],
     },
+    team: {
+      title: "Команда Voltix Wheel",
+      subtitle:
+        "Познакомьтесь с основной командой Voltix Wheel, представленной через официальные аватары проекта.",
+      placeholderLabel: "Аватар скоро",
+      members: [
+        {
+          id: "voltix-core",
+          name: "Voltix Core",
+          position: "Тимлид",
+          role: "Продуктовое и техническое направление",
+          description:
+            "Ведёт дорожную карту проекта, технические приоритеты и продуктовую реализацию. Отвечает за фокус, целостность и готовность Voltix Wheel к запуску.",
+        },
+        {
+          id: "reactor-runner",
+          name: "Reactor Runner",
+          position: "Gameplay Developer",
+          role: "Основная игровая механика",
+          description:
+            "Разрабатывает главный игровой цикл: вращение колеса, генерацию энергии, систему бустов, прогресс и поток наград.",
+        },
+        {
+          id: "voltix-spark",
+          name: "Voltix Spark",
+          position: "Frontend & UX Developer",
+          role: "Интерфейс, лендинг и пользовательский опыт",
+          description:
+            "Отвечает за пользовательскую часть проекта: лендинг, экраны приложения, интерфейсную логику, onboarding и визуальный путь игрока.",
+        },
+        {
+          id: "circuit-fox",
+          name: "Circuit Fox",
+          position: "Systems Developer",
+          role: "Backend-логика и интеграции",
+          description:
+            "Отвечает за системную часть проекта: backend-логику, потоки данных, интеграции, расчёты наград и техническую основу продукта.",
+        },
+      ],
+    },
     footer: {
       tagline: "Voltix Wheel — Крути колесо. Заряжай мир.",
     },
@@ -407,6 +502,7 @@ export const navItems = [
   { key: "game" as const, href: "#hero" },
   { key: "rewards" as const, href: "#rewards" },
   { key: "brands" as const, href: "#brands" },
+  { key: "team" as const, href: "#team" },
   { key: "roadmap" as const, href: "#roadmap" },
   { key: "community" as const, href: "#footer" },
 ];
