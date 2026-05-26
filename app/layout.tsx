@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Voltix Wheel — Run the wheel. Charge the world.",
   description:
-    "Help Voltix power the reactor, spin the generator wheel, and activate the VW Token Printer. Mobile energy game powered by VW rewards.",
+    "Power the Voltix Reactor, spin the generator wheel, and activate the VW Token Printer. A reactor-powered mobile game.",
 };
 
 export default function RootLayout({
