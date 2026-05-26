@@ -38,41 +38,33 @@ export function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-50 border-b border-blue-500/10 bg-[#070d1a]/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:px-6">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
           <a href="#hero" className="shrink-0 text-lg font-bold tracking-tight">
             <span className="gradient-text">{t.hero.title}</span>
           </a>
-          <nav className="hidden items-center gap-6 md:flex">
+          <nav className="flex flex-1 items-center justify-center gap-3 overflow-x-auto sm:gap-5">
             {navItems.map((link) => (
               <a
                 key={link.key}
                 href={link.href}
-                className="text-sm text-blue-100/70 transition-colors hover:text-amber-300"
+                className="shrink-0 text-xs text-blue-100/70 transition-colors hover:text-amber-300 sm:text-sm"
               >
                 {t.nav[link.key]}
               </a>
             ))}
           </nav>
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <LanguageSwitcher />
-            <a
-              href="#how-it-works"
-              className="rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white glow-blue sm:px-4"
-            >
-              {t.nav.spin}
-            </a>
-          </div>
+          <LanguageSwitcher />
         </div>
       </header>
 
       <main>
         <section
           id="hero"
-          className="hero-gradient relative overflow-hidden px-6 pb-20 pt-12 md:pb-28 md:pt-16"
+          className="hero-gradient relative overflow-hidden px-6 pb-12 pt-10 md:pb-16 md:pt-12"
         >
           <div className="mx-auto max-w-6xl">
-            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
-              <div className="flex flex-col gap-5 md:gap-6">
+            <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-10">
+              <div className="flex flex-col gap-4 md:gap-5">
                 <p className="inline-flex w-fit rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-cyan-200">
                   {t.hero.badge}
                 </p>
@@ -94,40 +86,6 @@ export function LandingPage() {
                 <p className="max-w-xl text-base leading-relaxed text-blue-100/80">
                   {t.hero.description}
                 </p>
-
-                <div className="flex flex-wrap gap-4">
-                  <a
-                    href="#how-it-works"
-                    className="rounded-full bg-gradient-to-r from-amber-400 to-amber-300 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-slate-900 glow-gold transition hover:brightness-110"
-                  >
-                    {t.hero.ctaPrimary}
-                  </a>
-                  <a
-                    href="#showcase"
-                    className="rounded-full border border-blue-400/40 bg-blue-500/10 px-8 py-3.5 text-sm font-semibold text-blue-100 transition hover:border-cyan-400/60 hover:bg-blue-500/20"
-                  >
-                    {t.hero.ctaSecondary}
-                  </a>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-2 pt-1">
-                  {t.canon.map((item, i) => (
-                    <span key={item.label} className="flex items-center gap-2">
-                      {i > 0 && (
-                        <span className="text-[10px] text-cyan-500/60">→</span>
-                      )}
-                      <span
-                        className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${
-                          item.highlight
-                            ? "border border-amber-400/40 bg-amber-400/15 text-amber-200"
-                            : "border border-blue-400/20 bg-blue-500/10 text-blue-100/80"
-                        }`}
-                      >
-                        {item.label}
-                      </span>
-                    </span>
-                  ))}
-                </div>
               </div>
 
               <div className="hidden lg:block">
@@ -143,13 +101,13 @@ export function LandingPage() {
 
         <section
           id="how-it-works"
-          className="section-gradient px-6 py-20 md:py-28"
+          className="section-gradient px-6 py-16 md:py-20"
         >
           <div className="mx-auto max-w-6xl">
             <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">
               {t.howItWorks.title}
             </h2>
-            <p className="mx-auto mb-12 max-w-2xl text-center text-blue-100/70">
+            <p className="mx-auto mb-8 max-w-2xl text-center text-blue-100/70">
               {t.howItWorks.subtitle}
             </p>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
@@ -178,12 +136,12 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section id="showcase" className="px-6 py-16 md:py-24">
+        <section id="showcase" className="px-6 py-12 md:py-16">
           <div className="mx-auto max-w-5xl text-center">
             <h2 className="mb-3 text-2xl font-bold md:text-3xl">
               {t.showcase.title}
             </h2>
-            <p className="mx-auto mb-10 max-w-2xl text-blue-100/70">
+            <p className="mx-auto mb-8 max-w-2xl text-blue-100/70">
               {t.showcase.subtitle}
             </p>
             <GameScreenshot
@@ -193,8 +151,8 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section id="printer" className="section-gradient px-6 py-20 md:py-28">
-          <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
+        <section id="printer" className="section-gradient px-6 py-16 md:py-20">
+          <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-2">
             <div className="order-2 lg:order-1">
               <GameScreenshot
                 src="/images/Other_General_page.png"
@@ -228,12 +186,12 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section id="rewards" className="px-6 py-20 md:py-28">
+        <section id="rewards" className="px-6 py-16 md:py-20">
           <div className="mx-auto max-w-6xl">
             <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">
               {t.rewards.title}
             </h2>
-            <p className="mx-auto mb-10 max-w-2xl text-center text-blue-100/70">
+            <p className="mx-auto mb-8 max-w-2xl text-center text-blue-100/70">
               {t.rewards.subtitle}
             </p>
 
@@ -283,12 +241,12 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section id="gameplay" className="section-gradient px-6 py-20 md:py-28">
+        <section id="gameplay" className="section-gradient px-6 py-16 md:py-20">
           <div className="mx-auto max-w-6xl">
-            <h2 className="mb-12 text-center text-3xl font-bold md:text-4xl">
+            <h2 className="mb-8 text-center text-3xl font-bold md:text-4xl">
               {t.gameplay.title}
             </h2>
-            <div className="grid gap-8 md:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-3">
               {t.gameplay.cards.map((card) => (
                 <div
                   key={card.title}
@@ -306,13 +264,13 @@ export function LandingPage() {
 
         <section
           id="brands"
-          className="section-gradient px-6 py-20 md:py-28"
+          className="section-gradient px-6 py-16 md:py-20"
         >
           <div className="mx-auto max-w-6xl">
             <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">
               {t.brands.title}
             </h2>
-            <p className="mx-auto mb-12 max-w-3xl text-center text-blue-100/70">
+            <p className="mx-auto mb-8 max-w-3xl text-center text-blue-100/70">
               {t.brands.subtitle}
             </p>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -328,44 +286,42 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section id="team" className="px-6 py-20 md:py-28">
+        <section id="team" className="px-6 py-16 md:py-20">
           <div className="mx-auto max-w-6xl">
-            <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">
+            <h2 className="mb-3 text-center text-3xl font-bold md:text-4xl">
               {t.team.title}
             </h2>
-            <p className="mx-auto mb-12 max-w-3xl text-center text-blue-100/70">
+            <p className="mx-auto mb-8 max-w-2xl text-center text-sm text-blue-100/60 md:text-base">
               {t.team.subtitle}
             </p>
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {t.team.members.map((member) => (
                 <article
                   key={member.id}
-                  className="glass-card glow-blue flex flex-col overflow-hidden rounded-2xl border-blue-400/20 transition hover:border-cyan-400/35"
+                  className="glass-card flex flex-col overflow-hidden rounded-xl border border-blue-400/15 transition hover:border-cyan-400/25"
                 >
-                  <div className="p-4 pb-0">
-                    <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-cyan-400/20 bg-slate-950 glow-blue">
-                      <Image
-                        src={member.avatar}
-                        alt={`${member.name} — ${member.position}`}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      />
-                    </div>
+                  <div className="relative h-48 overflow-hidden border-b border-cyan-400/10 bg-slate-950 sm:h-52">
+                    <Image
+                      src={member.avatar}
+                      alt={`${member.name} — ${member.position}`}
+                      fill
+                      className="object-contain p-2"
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 240px"
+                    />
                   </div>
-                  <div className="flex flex-1 flex-col gap-3 p-5 pt-4">
+                  <div className="flex flex-1 flex-col gap-2.5 p-4">
                     <div>
-                      <h3 className="text-lg font-bold text-cyan-200">
+                      <h3 className="text-base font-bold text-cyan-100">
                         {member.name}
                       </h3>
-                      <p className="mt-1 text-sm font-semibold text-amber-300">
+                      <p className="mt-0.5 text-sm font-semibold text-amber-300">
                         {member.position}
                       </p>
-                      <p className="mt-0.5 text-xs font-medium uppercase tracking-wide text-blue-300/70">
+                      <span className="mt-2 inline-block rounded-md border border-blue-400/20 bg-blue-500/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-blue-300/70">
                         {member.role}
-                      </p>
+                      </span>
                     </div>
-                    <p className="text-sm leading-relaxed text-blue-100/70">
+                    <p className="text-xs leading-relaxed text-blue-100/65">
                       {member.description}
                     </p>
                   </div>
@@ -375,16 +331,16 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section id="roadmap" className="section-gradient px-6 py-20 md:py-28">
+        <section id="roadmap" className="section-gradient px-6 py-16 md:py-20">
           <div className="mx-auto max-w-3xl">
-            <h2 className="mb-12 text-center text-3xl font-bold md:text-4xl">
+            <h2 className="mb-8 text-center text-3xl font-bold md:text-4xl">
               {t.roadmap.title}
             </h2>
             <ol className="relative flex flex-col gap-0">
               {t.roadmap.phases.map((phase, i) => (
                 <li
                   key={phase}
-                  className="relative flex gap-6 border-l-2 border-blue-500/30 pb-10 pl-8 last:pb-0"
+                  className="relative flex gap-6 border-l-2 border-blue-500/30 pb-6 pl-8 last:pb-0"
                 >
                   <span className="absolute -left-2.5 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 text-[10px] font-bold text-white">
                     {i + 1}
@@ -399,9 +355,9 @@ export function LandingPage() {
 
       <footer
         id="footer"
-        className="mt-auto border-t border-blue-500/10 bg-[#050a14] px-6 py-12"
+        className="mt-auto border-t border-blue-500/10 bg-[#050a14] px-6 py-8"
       >
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 md:flex-row md:justify-between">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 md:flex-row md:justify-between">
           <p className="text-center text-sm text-blue-100/60 md:text-left">
             {t.footer.tagline}
           </p>

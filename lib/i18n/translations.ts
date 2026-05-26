@@ -6,13 +6,10 @@ export type Translation = {
     description: string;
   };
   nav: {
-    game: string;
+    gameplay: string;
     rewards: string;
-    brands: string;
     team: string;
     roadmap: string;
-    community: string;
-    spin: string;
   };
   hero: {
     badge: string;
@@ -98,13 +95,10 @@ export const translations: Record<Locale, Translation> = {
         "Power the Voltix Reactor, spin the generator wheel, and activate the VW Token Printer. A reactor-powered mobile game.",
     },
     nav: {
-      game: "Game",
+      gameplay: "Gameplay",
       rewards: "Rewards",
-      brands: "Brands",
       team: "Team",
       roadmap: "Roadmap",
-      community: "Community",
-      spin: "Spin",
     },
     hero: {
       badge: "A reactor-powered mobile game",
@@ -246,8 +240,7 @@ export const translations: Record<Locale, Translation> = {
     },
     team: {
       title: "The Team Behind Voltix Wheel",
-      subtitle:
-        "Meet the core Voltix Wheel team, represented by official project avatars.",
+      subtitle: "Meet the core Voltix Wheel team",
       members: [
         {
           id: "atlas",
@@ -303,13 +296,10 @@ export const translations: Record<Locale, Translation> = {
         "Заряжай Voltix Reactor, крути генераторное колесо и запускай VW Token Printer. Мобильная игра на энергии реактора.",
     },
     nav: {
-      game: "Игра",
+      gameplay: "Геймплей",
       rewards: "Награды",
-      brands: "Бренды",
       team: "Команда",
-      roadmap: "Дорожная карта",
-      community: "Сообщество",
-      spin: "Крутить",
+      roadmap: "План",
     },
     hero: {
       badge: "Мобильная игра на энергии реактора",
@@ -452,8 +442,7 @@ export const translations: Record<Locale, Translation> = {
     },
     team: {
       title: "Команда Voltix Wheel",
-      subtitle:
-        "Познакомьтесь с основной командой Voltix Wheel, представленной через официальные аватары проекта.",
+      subtitle: "Познакомьтесь с основной командой Voltix Wheel",
       members: [
         {
           id: "atlas",
@@ -505,10 +494,8 @@ export const translations: Record<Locale, Translation> = {
 };
 
 export const navItems = [
-  { key: "game" as const, href: "#hero" },
+  { key: "gameplay" as const, href: "#how-it-works" },
   { key: "rewards" as const, href: "#rewards" },
-  { key: "brands" as const, href: "#brands" },
   { key: "team" as const, href: "#team" },
   { key: "roadmap" as const, href: "#roadmap" },
-  { key: "community" as const, href: "#footer" },
 ];
