@@ -456,7 +456,7 @@ export const translations: Record<Locale, Translation> = {
         {
           id: "torque",
           name: "Torque",
-          position: "Gameplay Developer",
+          position: "Разработчик геймплея",
           role: "Основная игровая механика",
           description:
             "Разрабатывает главный игровой цикл: вращение колеса, генерацию энергии, систему бустов, прогресс и поток наград.",
@@ -465,7 +465,7 @@ export const translations: Record<Locale, Translation> = {
         {
           id: "lumen",
           name: "Lumen",
-          position: "Frontend & UX Developer",
+          position: "Frontend и UX-разработчик",
           role: "Интерфейс, лендинг и пользовательский опыт",
           description:
             "Отвечает за пользовательскую часть проекта: лендинг, экраны приложения, интерфейсную логику, onboarding и визуальный путь игрока.",
@@ -474,7 +474,7 @@ export const translations: Record<Locale, Translation> = {
         {
           id: "nexus",
           name: "Nexus",
-          position: "Systems Developer",
+          position: "Системный разработчик",
           role: "Backend-логика и интеграции",
           description:
             "Отвечает за системную часть проекта: backend-логику, потоки данных, интеграции, расчёты наград и техническую основу продукта.",
