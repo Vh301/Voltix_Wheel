@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { ImageLightbox, useImageLightbox } from "@/components/image-lightbox";
 import { useLanguage } from "@/components/language-provider";
 import { navItems } from "@/lib/i18n/translations";
 
@@ -120,13 +121,15 @@ function GameScreenshot({
   alt,
   priority = false,
   className = "",
+  onZoom,
 }: {
   src: string;
   alt: string;
   priority?: boolean;
   className?: string;
+  onZoom?: (image: { src: string; alt: string }) => void;
 }) {
-  return (
+  const frame = (
     <div className={`screenshot-frame ${className}`}>
       <div className="screenshot-inner glow-gold">
         <Image
@@ -140,13 +143,28 @@ function GameScreenshot({
       </div>
     </div>
   );
+
+  if (!onZoom) return frame;
+
+  return (
+    <button
+      type="button"
+      onClick={() => onZoom({ src, alt })}
+      className="block w-full cursor-zoom-in text-left"
+      aria-label={alt}
+    >
+      {frame}
+    </button>
+  );
 }
 
 export function LandingPage() {
   const { t } = useLanguage();
+  const lightbox = useImageLightbox();
 
   return (
     <div className="flex min-h-screen flex-col">
+      <ImageLightbox image={lightbox.image} onClose={lightbox.close} />
       <header className="sticky top-0 z-50 border-b border-blue-500/15 bg-[#070d1a]/95 backdrop-blur-md">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex items-center justify-between gap-4 py-3 md:hidden">
@@ -215,6 +233,7 @@ export function LandingPage() {
                     src="/images/General_page.png"
                     alt={t.hero.imageAlt}
                     priority
+                    onZoom={lightbox.open}
                   />
                 </div>
 
@@ -228,6 +247,7 @@ export function LandingPage() {
                   src="/images/General_page.png"
                   alt={t.hero.imageAlt}
                   priority
+                  onZoom={lightbox.open}
                 />
               </div>
             </div>
@@ -451,15 +471,25 @@ export function LandingPage() {
                   <div
                     className={`absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r ${accent.bar}`}
                   />
-                  <div className="relative h-44 overflow-hidden border-b border-white/5 bg-slate-950 sm:h-48">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      lightbox.open({
+                        src: member.avatar,
+                        alt: `${member.name} — ${member.position}`,
+                      })
+                    }
+                    className="relative h-44 w-full cursor-zoom-in overflow-hidden border-b border-white/5 bg-slate-950 sm:h-48"
+                    aria-label={`${member.name} — ${member.position}`}
+                  >
                     <Image
                       src={member.avatar}
-                      alt={`${member.name} — ${member.position}`}
+                      alt=""
                       fill
                       className="object-contain p-2"
                       sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 240px"
                     />
-                  </div>
+                  </button>
                   <div className="flex flex-1 flex-col gap-2 p-3.5">
                     <div>
                       <h3 className="text-base font-bold text-cyan-100">
