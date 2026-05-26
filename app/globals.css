@@ -65,7 +65,7 @@ body {
 .screenshot-frame::before {
   content: "";
   position: absolute;
-  inset: -1.5rem;
+  inset: -0.75rem;
   border-radius: 2rem;
   background: linear-gradient(
     135deg,
