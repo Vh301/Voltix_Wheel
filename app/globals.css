@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+:root {
+  --background: #070d1a;
+  --foreground: #e8f0ff;
+  --electric-blue: #3b82f6;
+  --electric-cyan: #22d3ee;
+  --gold: #fbbf24;
+  --gold-bright: #fcd34d;
+  --reactor-glow: rgba(59, 130, 246, 0.35);
+  --card-bg: rgba(15, 23, 42, 0.75);
+  --card-border: rgba(96, 165, 250, 0.2);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.glow-blue {
+  box-shadow: 0 0 40px var(--reactor-glow);
+}
+
+.glow-gold {
+  box-shadow: 0 0 30px rgba(251, 191, 36, 0.25);
+}
+
+.glass-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(12px);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #60a5fa 0%, #22d3ee 50%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-gradient {
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59, 130, 246, 0.18) 0%, transparent 70%);
+}
+
+.section-gradient {
+  background: linear-gradient(180deg, transparent 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%);
+}
