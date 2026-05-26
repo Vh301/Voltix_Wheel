@@ -71,13 +71,13 @@ export type Translation = {
   team: {
     title: string;
     subtitle: string;
-    placeholderLabel: string;
     members: Array<{
       id: string;
       name: string;
       position: string;
       role: string;
       description: string;
+      avatar: string;
     }>;
   };
   footer: {
@@ -248,39 +248,42 @@ export const translations: Record<Locale, Translation> = {
       title: "The Team Behind Voltix Wheel",
       subtitle:
         "Meet the core Voltix Wheel team, represented by official project avatars.",
-      placeholderLabel: "Avatar coming soon",
       members: [
         {
-          id: "voltix-core",
-          name: "Voltix Core",
+          id: "atlas",
+          name: "Atlas",
           position: "Team Lead",
           role: "Product & Technical Direction",
           description:
             "Leads the project roadmap, technical priorities, and product execution. Responsible for keeping Voltix Wheel focused, consistent, and ready for launch.",
+          avatar: "/images/team/atlas.png",
         },
         {
-          id: "reactor-runner",
-          name: "Reactor Runner",
+          id: "torque",
+          name: "Torque",
           position: "Gameplay Developer",
           role: "Core Game Mechanics",
           description:
             "Builds the gameplay loop: wheel spins, energy generation, boost systems, progression, and reward flow.",
+          avatar: "/images/team/torque.png",
         },
         {
-          id: "voltix-spark",
-          name: "Voltix Spark",
+          id: "lumen",
+          name: "Lumen",
           position: "Frontend & UX Developer",
           role: "Interface, Landing & User Experience",
           description:
             "Shapes the player-facing side of the project: landing page, app screens, interface logic, onboarding, and visual flow.",
+          avatar: "/images/team/lumen.png",
         },
         {
-          id: "circuit-fox",
-          name: "Circuit Fox",
+          id: "nexus",
+          name: "Nexus",
           position: "Systems Developer",
           role: "Backend Logic & Integrations",
           description:
             "Handles backend logic, data flow, integrations, reward calculations, and the technical foundation behind the product.",
+          avatar: "/images/team/nexus.png",
         },
       ],
     },
@@ -451,39 +454,42 @@ export const translations: Record<Locale, Translation> = {
       title: "Команда Voltix Wheel",
       subtitle:
         "Познакомьтесь с основной командой Voltix Wheel, представленной через официальные аватары проекта.",
-      placeholderLabel: "Аватар скоро",
       members: [
         {
-          id: "voltix-core",
-          name: "Voltix Core",
+          id: "atlas",
+          name: "Atlas",
           position: "Тимлид",
           role: "Продуктовое и техническое направление",
           description:
             "Ведёт дорожную карту проекта, технические приоритеты и продуктовую реализацию. Отвечает за фокус, целостность и готовность Voltix Wheel к запуску.",
+          avatar: "/images/team/atlas.png",
         },
         {
-          id: "reactor-runner",
-          name: "Reactor Runner",
+          id: "torque",
+          name: "Torque",
           position: "Gameplay Developer",
           role: "Основная игровая механика",
           description:
             "Разрабатывает главный игровой цикл: вращение колеса, генерацию энергии, систему бустов, прогресс и поток наград.",
+          avatar: "/images/team/torque.png",
         },
         {
-          id: "voltix-spark",
-          name: "Voltix Spark",
+          id: "lumen",
+          name: "Lumen",
           position: "Frontend & UX Developer",
           role: "Интерфейс, лендинг и пользовательский опыт",
           description:
             "Отвечает за пользовательскую часть проекта: лендинг, экраны приложения, интерфейсную логику, onboarding и визуальный путь игрока.",
+          avatar: "/images/team/lumen.png",
         },
         {
-          id: "circuit-fox",
-          name: "Circuit Fox",
+          id: "nexus",
+          name: "Nexus",
           position: "Systems Developer",
           role: "Backend-логика и интеграции",
           description:
             "Отвечает за системную часть проекта: backend-логику, потоки данных, интеграции, расчёты наград и техническую основу продукта.",
+          avatar: "/images/team/nexus.png",
         },
       ],
     },

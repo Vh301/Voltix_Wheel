@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useLanguage } from "@/components/language-provider";
-import { TeamAvatarPlaceholder } from "@/components/team-avatar-placeholder";
 import { navItems } from "@/lib/i18n/translations";
 
 function GameScreenshot({
@@ -344,7 +343,15 @@ export function LandingPage() {
                   className="glass-card glow-blue flex flex-col overflow-hidden rounded-2xl border-blue-400/20 transition hover:border-cyan-400/35"
                 >
                   <div className="p-4 pb-0">
-                    <TeamAvatarPlaceholder label={t.team.placeholderLabel} />
+                    <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-cyan-400/20 bg-slate-950 glow-blue">
+                      <Image
+                        src={member.avatar}
+                        alt={`${member.name} — ${member.position}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      />
+                    </div>
                   </div>
                   <div className="flex flex-1 flex-col gap-3 p-5 pt-4">
                     <div>
