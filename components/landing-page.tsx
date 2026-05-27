@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { BrandsAccordion } from "@/components/brands-accordion";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { ImageLightbox, useImageLightbox } from "@/components/image-lightbox";
 import { useLanguage } from "@/components/language-provider";
@@ -428,26 +429,16 @@ export function LandingPage() {
             <h2 className="mb-3 text-center text-3xl font-bold md:text-4xl">
               {t.brands.title}
             </h2>
-            <p className="mx-auto mb-4 max-w-3xl text-center text-blue-100/70">
+            <p className="mx-auto mb-3 max-w-2xl text-center text-blue-100/75">
               {t.brands.subtitle}
             </p>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {t.brands.cards.map((card, index) => (
-                <div
-                  key={card}
-                  className={`glass-card relative overflow-hidden rounded-xl px-5 py-4 text-center text-sm font-medium text-blue-100/90 transition ${
-                    index % 3 === 0
-                      ? "border-amber-400/20 bg-amber-950/10"
-                      : index % 3 === 1
-                        ? "border-orange-400/20 bg-orange-950/10"
-                        : "border-yellow-400/15 bg-yellow-950/5"
-                  }`}
-                >
-                  <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-amber-400/70 to-amber-500/10" />
-                  {card}
-                </div>
-              ))}
-            </div>
+            <p className="mx-auto mb-5 max-w-xl text-center font-mono text-sm text-amber-300/90">
+              {t.brands.formula}
+            </p>
+            <BrandsAccordion content={t.brands} />
+            <p className="mx-auto mt-5 max-w-2xl text-center text-xs text-blue-100/45">
+              {t.brands.disclaimer}
+            </p>
           </div>
         </section>
 

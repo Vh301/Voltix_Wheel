@@ -63,7 +63,38 @@ export type Translation = {
   brands: {
     title: string;
     subtitle: string;
-    cards: string[];
+    formula: string;
+    disclaimer: string;
+    panels: {
+      howItWorks: {
+        title: string;
+        summary: string;
+        levels: Array<{ name: string; description: string; formats: string[] }>;
+      };
+      spots: {
+        title: string;
+        summary: string;
+        items: string[];
+      };
+      categories: {
+        title: string;
+        summary: string;
+        items: string[];
+      };
+      rules: {
+        title: string;
+        summary: string;
+        allowedLabel: string;
+        notAllowedLabel: string;
+        allowed: string[];
+        notAllowed: string[];
+      };
+      packages: {
+        title: string;
+        summary: string;
+        items: Array<{ id: string; name: string; description: string }>;
+      };
+    };
   };
   team: {
     title: string;
@@ -226,17 +257,117 @@ export const translations: Record<Locale, Translation> = {
       ],
     },
     brands: {
-      title: "Sponsor moments built into the world",
+      title: "For Brands",
       subtitle:
-        "Brands can appear as natural parts of the Voltix Reactor — a drink in the cooling station, a monitor in the workshop, a poster on the wall, or a badge on the token printer.",
-      cards: [
-        "Product placement",
-        "Sponsored events",
-        "Optional sponsor boosts",
-        "Brand props",
-        "Native equipment skins",
-        "Daily pool sponsorships",
-      ],
+        "Voltix Wheel does not sell ad space. It offers sponsor presence inside the Voltix Reactor world.",
+      formula: "Brand → Game object → Player action → Reward",
+      disclaimer:
+        "Concept only. Placeholder sponsors. No partnership implied.",
+      panels: {
+        howItWorks: {
+          title: "How integration works",
+          summary: "Three levels — from in-world props to sponsored systems.",
+          levels: [
+            {
+              name: "Level 1 — Native Props",
+              description:
+                "The brand appears as a physical object inside the reactor workshop.",
+              formats: ["Product placement", "Brand props"],
+            },
+            {
+              name: "Level 2 — Optional Sponsor Moments",
+              description:
+                "The player chooses to engage — no forced viewing, no popups.",
+              formats: ["Optional sponsor boosts"],
+            },
+            {
+              name: "Level 3 — Sponsored Systems",
+              description:
+                "The brand supports a game system, event, or equipment layer.",
+              formats: [
+                "Sponsored events",
+                "Native equipment skins",
+                "Daily pool sponsorships",
+              ],
+            },
+          ],
+        },
+        spots: {
+          title: "Sponsor spots",
+          summary: "Seven natural placement points inside Voltix Reactor.",
+          items: [
+            "Cooling Station — drink, fridge badge, temperature display",
+            "Reactor Control Monitor — status screen, diagnostics",
+            "Workshop Wall Poster — performance / seasonal poster",
+            "VW Token Printer Badge — manufacturer plate on the machine",
+            "Battery / Energy Module — power cell branding",
+            "Daily Reward Pool Panel — today's pool charged by sponsor",
+            "Boost / Task Card — optional sponsor boost or challenge",
+          ],
+        },
+        categories: {
+          title: "Good fit categories",
+          summary: "Brand categories that fit the reactor world naturally.",
+          items: [
+            "Drinks / Energy / Water",
+            "Appliances / Cooling / Home Tech",
+            "Electronics / Displays / Monitors",
+            "Automotive / Speed / Performance",
+            "Hardware / Tools / Batteries",
+          ],
+        },
+        rules: {
+          title: "Rules",
+          summary: "What we build — and what we avoid.",
+          allowedLabel: "We do",
+          notAllowedLabel: "We don't",
+          allowed: [
+            "In-world props and equipment",
+            "Optional sponsor boosts",
+            "Sponsored reward pool",
+            "Branded cosmetic skins",
+            "Screens inside machinery",
+          ],
+          notAllowed: [
+            "Banner ads over the game",
+            "Popups blocking gameplay",
+            "Forced ad watching",
+            "Huge logos covering the screen",
+            "Misleading earn-money promises",
+          ],
+        },
+        packages: {
+          title: "Packages",
+          summary: "Five sponsor formats for partners.",
+          items: [
+            {
+              id: "A",
+              name: "Native Prop Placement",
+              description: "Small sponsor object in the game environment.",
+            },
+            {
+              id: "B",
+              name: "Sponsored Boost",
+              description: "Optional energy or gameplay boost from a sponsor.",
+            },
+            {
+              id: "C",
+              name: "Sponsored Daily Pool",
+              description: "Brand supports the shared daily reward pool.",
+            },
+            {
+              id: "D",
+              name: "Sponsor Challenge / Event",
+              description: "Limited-time mission or reactor event.",
+            },
+            {
+              id: "E",
+              name: "Premium Equipment Skin",
+              description: "Branded fridge, monitor, printer, or reactor panel.",
+            },
+          ],
+        },
+      },
     },
     team: {
       title: "The Team Behind Voltix Wheel",
@@ -428,17 +559,117 @@ export const translations: Record<Locale, Translation> = {
       ],
     },
     brands: {
-      title: "Спонсорские моменты внутри игрового мира",
+      title: "Для брендов",
       subtitle:
-        "Бренды могут появляться как естественная часть Voltix Reactor — напиток в охлаждающей станции, монитор в мастерской, постер на стене или табличка на токен-принтере.",
-      cards: [
-        "Product placement",
-        "Спонсорские события",
-        "Опциональные спонсорские бусты",
-        "Брендовые props",
-        "Нативные скины оборудования",
-        "Спонсорство daily pool",
-      ],
+        "Voltix Wheel продаёт не рекламные места, а присутствие бренда внутри игрового мира Voltix Reactor.",
+      formula: "Бренд → Игровой объект → Действие игрока → Награда",
+      disclaimer:
+        "Только концепт. Placeholder-спонсоры. Партнёрство не подразумевается.",
+      panels: {
+        howItWorks: {
+          title: "Как это работает",
+          summary: "Три уровня — от props в мире до спонсорских систем.",
+          levels: [
+            {
+              name: "Level 1 — Native Props",
+              description:
+                "Бренд появляется как физический объект внутри реакторной мастерской.",
+              formats: ["Product placement", "Брендовые props"],
+            },
+            {
+              name: "Level 2 — Optional Sponsor Moments",
+              description:
+                "Игрок сам решает участвовать — без принудительного просмотра и popups.",
+              formats: ["Опциональные спонсорские бусты"],
+            },
+            {
+              name: "Level 3 — Sponsored Systems",
+              description:
+                "Бренд поддерживает игровую систему, событие или слой оборудования.",
+              formats: [
+                "Спонсорские события",
+                "Нативные скины оборудования",
+                "Спонсорство daily pool",
+              ],
+            },
+          ],
+        },
+        spots: {
+          title: "Точки размещения",
+          summary: "Семь естественных точек внутри Voltix Reactor.",
+          items: [
+            "Cooling Station — напиток, шильдик холодильника, температура",
+            "Reactor Control Monitor — экран статуса, диагностика",
+            "Workshop Wall Poster — performance / сезонный постер",
+            "VW Token Printer Badge — табличка производителя на машине",
+            "Battery / Energy Module — брендинг энергоячейки",
+            "Daily Reward Pool Panel — сегодняшний пул заряжен спонсором",
+            "Boost / Task Card — optional sponsor boost или challenge",
+          ],
+        },
+        categories: {
+          title: "Кому подходит",
+          summary: "Категории брендов, которые органично ложатся в мир реактора.",
+          items: [
+            "Напитки / Energy / Water",
+            "Бытовая техника / Cooling / Home Tech",
+            "Электроника / Displays / Monitors",
+            "Automotive / Speed / Performance",
+            "Hardware / Tools / Batteries",
+          ],
+        },
+        rules: {
+          title: "Правила",
+          summary: "Что мы делаем — и чего избегаем.",
+          allowedLabel: "Делаем",
+          notAllowedLabel: "Не делаем",
+          allowed: [
+            "Props и оборудование внутри мира",
+            "Опциональные спонсорские бусты",
+            "Sponsored reward pool",
+            "Брендированные cosmetic skins",
+            "Экраны внутри machinery",
+          ],
+          notAllowed: [
+            "Баннеры поверх игры",
+            "Popups, блокирующие геймплей",
+            "Принудительный просмотр рекламы",
+            "Огромные логотипы на весь экран",
+            "Ложные обещания «заработка»",
+          ],
+        },
+        packages: {
+          title: "Пакеты",
+          summary: "Пять форматов для партнёров.",
+          items: [
+            {
+              id: "A",
+              name: "Native Prop Placement",
+              description: "Небольшой sponsor object в игровой среде.",
+            },
+            {
+              id: "B",
+              name: "Sponsored Boost",
+              description: "Опциональный energy или gameplay boost от спонсора.",
+            },
+            {
+              id: "C",
+              name: "Sponsored Daily Pool",
+              description: "Бренд поддерживает общий daily reward pool.",
+            },
+            {
+              id: "D",
+              name: "Sponsor Challenge / Event",
+              description: "Limited-time миссия или reactor event.",
+            },
+            {
+              id: "E",
+              name: "Premium Equipment Skin",
+              description: "Брендированный fridge, monitor, printer или reactor panel.",
+            },
+          ],
+        },
+      },
     },
     team: {
       title: "Команда Voltix Wheel",
