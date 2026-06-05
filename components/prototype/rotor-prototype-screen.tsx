@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { HorizontalRotor } from "@/components/prototype/horizontal-rotor";
+import { GearFlywheel } from "@/components/prototype/gear-flywheel";
 import { useRotorSimulation } from "@/lib/prototype/use-rotor-simulation";
 import { useSwipeImpulse } from "@/lib/prototype/use-swipe-impulse";
 
@@ -54,26 +54,21 @@ export function RotorPrototypeScreen() {
           </h1>
         </header>
 
-        <div className="relative flex flex-1 flex-col justify-center px-3 pb-4">
-          <HorizontalRotor
+        <div className="relative flex flex-1 flex-col justify-end px-3 pb-2">
+          <GearFlywheel
             angle={simulation.angle}
             energyFlow={simulation.energyFlow}
           />
 
           <div
-            className="absolute right-3 top-1/2 z-20 h-52 w-28 -translate-y-1/2 rounded-2xl border border-cyan-400/25 bg-cyan-400/5"
+            className="absolute inset-x-[6%] bottom-[12%] z-20 h-32 touch-none"
+            aria-label="Swipe the gear teeth right to left"
             {...swipeHandlers}
-          >
-            <div className="flex h-full flex-col items-center justify-center gap-2 px-2 text-center">
-              <span className="text-2xl text-cyan-300/80">↤</span>
-              <p className="text-[11px] font-medium leading-tight text-cyan-100/75">
-                Swipe right to left
-              </p>
-              <p className="text-[10px] leading-tight text-blue-100/45">
-                Faster swipe = stronger impulse
-              </p>
-            </div>
-          </div>
+          />
+
+          <p className="pointer-events-none relative z-10 mt-1 text-center text-[10px] leading-tight text-cyan-100/50">
+            Swipe front teeth right → left · faster = stronger spin
+          </p>
         </div>
 
         <div className="relative z-10 space-y-3 px-4 pb-5">
