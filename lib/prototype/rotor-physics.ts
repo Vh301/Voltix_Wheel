@@ -10,12 +10,12 @@ export function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
-/** Swipe right→left (negative px/ms) adds positive angular velocity. */
+/** Swipe left→right (positive px/ms) adds positive angular velocity. */
 export function applySwipeImpulse(
   currentVelocity: number,
   swipeVelocityPxPerMs: number,
 ) {
-  const impulse = -swipeVelocityPxPerMs * ROTOR_PHYSICS.impulseScale * 1000;
+  const impulse = swipeVelocityPxPerMs * ROTOR_PHYSICS.impulseScale * 1000;
   return clamp(
     currentVelocity + impulse,
     -ROTOR_PHYSICS.maxAngularVelocity,

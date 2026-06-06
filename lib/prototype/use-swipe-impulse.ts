@@ -41,7 +41,7 @@ export function useSwipeImpulse(onSwipe: (velocityPxPerMs: number) => void) {
     const velocity = velocityFromPoints(pointsRef.current);
     pointsRef.current = [];
 
-    if (velocity < -0.05) {
+    if (velocity > 0.05) {
       onSwipe(velocity);
     }
   }, [onSwipe]);

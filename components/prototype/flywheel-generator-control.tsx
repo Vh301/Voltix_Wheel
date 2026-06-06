@@ -180,7 +180,7 @@ export function FlywheelGeneratorControl({
 
       <div
         className="swipe-hit-zone absolute inset-x-[14%] top-2 z-30 h-[3.5rem] touch-none"
-        aria-label="Swipe the flywheel teeth right to left"
+        aria-label="Swipe the flywheel teeth left to right"
         {...swipeHandlers}
       />
 
