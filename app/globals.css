@@ -89,3 +89,16 @@ body {
     0 0 0 1px rgba(251, 191, 36, 0.08),
     0 0 60px rgba(59, 130, 246, 0.15);
 }
+
+@keyframes rotor-led-pulse {
+  0%,
+  100% {
+    opacity: 0.2;
+    box-shadow: 0 0 2px rgba(34, 211, 238, 0.15);
+  }
+
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.85);
+  }
+}

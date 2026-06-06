@@ -155,6 +155,45 @@ function VentGrille({ className }: { className: string }) {
   );
 }
 
+function RotorLed({
+  energyFlow,
+  side,
+}: {
+  energyFlow: number;
+  side: "left" | "right";
+}) {
+  const active = energyFlow > 0.01;
+  const blinkDuration = `${Math.max(0.1, 1.05 - energyFlow * 0.92)}s`;
+  const isLeft = side === "left";
+
+  return (
+    <div
+      className={`pointer-events-none absolute top-1/2 z-[25] -translate-y-1/2 ${
+        isLeft ? "-left-2" : "-right-2"
+      }`}
+    >
+      <div className="rounded-sm border border-zinc-600/80 bg-gradient-to-b from-zinc-700 to-zinc-950 p-[3px] shadow-inner">
+        <div
+          className="h-2.5 w-2.5 rounded-full bg-cyan-950/80 ring-1 ring-cyan-500/20"
+          style={{
+            animation: active
+              ? `rotor-led-pulse ${blinkDuration} ease-in-out infinite`
+              : "none",
+            animationDelay: isLeft ? "0s" : `calc(${blinkDuration} / 2)`,
+            opacity: active ? 0.35 + energyFlow * 0.65 : 0.12,
+            background: active
+              ? `radial-gradient(circle at 35% 30%, rgba(186,230,253,${0.5 + energyFlow * 0.5}) 0%, rgba(34,211,238,${0.25 + energyFlow * 0.45}) 45%, rgba(8,47,73,0.95) 100%)`
+              : "radial-gradient(circle, rgba(15,23,42,0.95) 0%, rgba(8,47,73,0.8) 100%)",
+            boxShadow: active
+              ? `0 0 ${3 + energyFlow * 12}px rgba(34,211,238,${0.25 + energyFlow * 0.55})`
+              : "none",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export function FlywheelGeneratorControl({
   toothBeltRef,
   energyFlow,
@@ -214,8 +253,11 @@ export function FlywheelGeneratorControl({
           <div className="energy-side-modules relative flex h-[4.85rem] items-stretch px-1.5 pb-2.5 pt-3">
             <SideModule side="left" energyFlow={energyFlow} />
 
-            <div className="flywheel-window relative mx-1 min-w-0 flex-[1_1_72%] overflow-hidden rounded-md border-2 border-zinc-600/80 bg-black shadow-[inset_0_0_0_1px_rgba(34,211,238,0.12),inset_0_6px_20px_rgba(0,0,0,0.9)]">
-              <div className="pointer-events-none absolute inset-0 z-[15] rounded-[inherit] ring-1 ring-inset ring-cyan-400/15" />
+            <div className="flywheel-window relative mx-1 min-w-0 flex-[1_1_72%] overflow-visible rounded-md border-2 border-zinc-600/80 bg-black shadow-[inset_0_0_0_1px_rgba(34,211,238,0.12),inset_0_6px_20px_rgba(0,0,0,0.9)]">
+              <RotorLed energyFlow={energyFlow} side="left" />
+              <RotorLed energyFlow={energyFlow} side="right" />
+
+              <div className="pointer-events-none absolute inset-0 z-[15] overflow-hidden rounded-[inherit] ring-1 ring-inset ring-cyan-400/15" />
               <div
                 className="pointer-events-none absolute left-1.5 top-1.5 z-[15] h-1 w-1 rounded-full bg-cyan-400/80"
                 style={{ opacity: 0.35 + energyFlow * 0.65 }}
@@ -226,10 +268,11 @@ export function FlywheelGeneratorControl({
               />
 
               <div
-                className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-cyan-400/10 via-transparent to-cyan-500/10"
+                className="pointer-events-none absolute inset-0 z-10 overflow-hidden rounded-[inherit] bg-gradient-to-b from-cyan-400/10 via-transparent to-cyan-500/10"
                 style={{ opacity: 0.15 + energyFlow * 0.55 }}
               />
 
+              <div className="absolute inset-0 overflow-hidden rounded-[inherit]">
               <div
                 ref={toothBeltRef}
                 className="moving-tooth-belt absolute inset-y-1 left-0 flex items-end will-change-transform"
@@ -243,6 +286,7 @@ export function FlywheelGeneratorControl({
 
               <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-3 bg-gradient-to-r from-black/80 to-transparent" />
               <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-3 bg-gradient-to-r from-transparent to-black/80" />
+              </div>
             </div>
 
             <SideModule side="right" energyFlow={energyFlow} />
