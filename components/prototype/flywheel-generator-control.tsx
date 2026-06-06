@@ -20,6 +20,62 @@ type FlywheelGeneratorControlProps = {
 
 const TOOTH_REPEAT = 36;
 
+/** One pitch: root valley + trapezoidal gear tooth (side-view rim profile). */
+function GearPitch() {
+  const { patternWidthPx, toothWidthPx, toothGapPx } = TOOTH_BELT;
+
+  return (
+    <div
+      className="relative h-full shrink-0"
+      style={{ width: patternWidthPx }}
+    >
+      {/* Root valley between teeth */}
+      <div
+        className="absolute bottom-0 top-[40%] bg-gradient-to-b from-zinc-950 via-black to-zinc-950"
+        style={{ left: 0, width: toothGapPx }}
+      />
+
+      {/* Trapezoidal tooth: wide at root, narrower at crest */}
+      <div
+        className="absolute bottom-0 border-x border-zinc-500/40"
+        style={{
+          left: toothGapPx,
+          width: toothWidthPx,
+          top: "5%",
+          clipPath:
+            "polygon(14% 100%, 0% 36%, 50% 0%, 100% 36%, 86% 100%)",
+          background:
+            "linear-gradient(to right, #27272a 0%, #71717a 42%, #d4d4d8 50%, #71717a 58%, #27272a 100%)",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -2px 4px rgba(0,0,0,0.45)",
+        }}
+      />
+
+      {/* Flat crest line */}
+      <div
+        className="absolute bg-gradient-to-r from-transparent via-white/25 to-transparent"
+        style={{
+          left: toothGapPx + toothWidthPx * 0.22,
+          width: toothWidthPx * 0.56,
+          top: "6%",
+          height: 2,
+        }}
+      />
+
+      {/* Left flank shadow */}
+      <div
+        className="absolute bottom-0 bg-black/25"
+        style={{
+          left: toothGapPx,
+          width: toothWidthPx * 0.22,
+          top: "36%",
+          clipPath: "polygon(0 100%, 100% 0, 100% 100%)",
+        }}
+      />
+    </div>
+  );
+}
+
 function SideModule({
   side,
   energyFlow,
@@ -58,21 +114,6 @@ function SideModule({
         }`}
         style={{ opacity: 0.35 + energyFlow * 0.65 }}
       />
-    </div>
-  );
-}
-
-function Tooth() {
-  return (
-    <div
-      className="relative h-full shrink-0"
-      style={{
-        width: TOOTH_BELT.toothWidthPx,
-        marginRight: TOOTH_BELT.toothGapPx,
-      }}
-    >
-      <div className="absolute inset-y-[8%] inset-x-0 rounded-[1px] border border-zinc-500/60 bg-gradient-to-r from-zinc-800 via-zinc-400 to-zinc-700 shadow-[inset_0_0_4px_rgba(255,255,255,0.12)]" />
-      <div className="absolute inset-y-[18%] left-[20%] w-[18%] rounded-full bg-white/10" />
     </div>
   );
 }
@@ -120,11 +161,12 @@ export function FlywheelGeneratorControl({
 
             <div
               ref={toothBeltRef}
-              className="moving-tooth-belt absolute inset-y-1 left-0 flex items-stretch will-change-transform"
+              className="moving-tooth-belt absolute inset-y-1 left-0 flex items-end will-change-transform"
               style={{ transform: "translateX(0px)" }}
             >
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[40%] bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-900" />
               {Array.from({ length: TOOTH_REPEAT }).map((_, index) => (
-                <Tooth key={index} />
+                <GearPitch key={index} />
               ))}
             </div>
 
