@@ -1,7 +1,7 @@
 import { toNano, beginCell, Address } from "@ton/ton";
 import { mnemonicToPrivateKey } from "@ton/crypto";
 import {
-  VTX_MAINNET,
+  VLTX_MAINNET,
   MAINNET_TONAPI,
   MAINNET_TONCENTER_RPC,
   loadMainnetDeployMnemonic,
@@ -9,7 +9,7 @@ import {
   assertMainnetConfirm,
   isPrepareOnly,
 } from "../lib/mainnet-config";
-import { vtxAmountToNano } from "../lib/amount";
+import { vltxAmountToNano } from "../lib/amount";
 import {
   buildSignedExternalBoc,
   createMainnetWallet,
@@ -23,8 +23,8 @@ const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
 async function main() {
   const prepareOnly = isPrepareOnly();
 
-  console.log("Mint VTX on TON MAINNET\n");
-  console.log("WARNING: real mainnet. No transaction without VTX_MAINNET_CONFIRM.\n");
+  console.log(`Mint ${VLTX_MAINNET.symbol} on TON MAINNET\n`);
+  console.log("WARNING: real mainnet. No transaction without VLTX_MAINNET_CONFIRM.\n");
 
   const cleanMnemonic = loadMainnetDeployMnemonic();
   const jettonMaster = loadMainnetJettonMaster();
@@ -32,17 +32,17 @@ async function main() {
   const keyPair = await mnemonicToPrivateKey(cleanMnemonic.split(" "));
   const wallet = createMainnetWallet(keyPair);
   const walletAddress = wallet.address;
-  const decimals = VTX_MAINNET.decimals;
-  const amountNano = vtxAmountToNano(VTX_MAINNET.mintAmount, decimals);
+  const decimals = VLTX_MAINNET.decimals;
+  const amountNano = vltxAmountToNano(VLTX_MAINNET.mintAmount, decimals);
 
   console.log("Admin/recipient wallet:", walletAddress.toString());
   console.log("Jetton master:", jettonMaster);
   console.log(
-    `Mint amount: ${VTX_MAINNET.mintAmount.toLocaleString()} ${VTX_MAINNET.symbol}`,
+    `Mint amount: ${VLTX_MAINNET.mintAmount.toLocaleString()} ${VLTX_MAINNET.symbol}`,
   );
   console.log(`Amount (nano): ${amountNano.toString()}`);
   console.log(
-    `Expected raw check: ${VTX_MAINNET.mintAmount.toString()} * 10^${decimals} = ${amountNano.toString()}`,
+    `Expected raw check: ${VLTX_MAINNET.mintAmount.toString()} * 10^${decimals} = ${amountNano.toString()}`,
   );
 
   if (prepareOnly) {
@@ -97,7 +97,7 @@ async function main() {
     process.stdout.write(".");
   }
 
-  console.log("\n\nChecking VTX balance...");
+  console.log("\n\nChecking VLTX balance...");
   try {
     const balanceResponse = await fetch(
       `${MAINNET_TONAPI}/v2/accounts/${walletAddress.toRawString()}/jettons/${Address.parse(jettonMaster).toRawString()}`,
@@ -106,9 +106,9 @@ async function main() {
 
     if (balanceData.balance) {
       const balance = BigInt(balanceData.balance);
-      const balanceVtx = Number(balance) / Number(10n ** BigInt(decimals));
+      const balanceVltx = Number(balance) / Number(10n ** BigInt(decimals));
       console.log(
-        `\nVTX balance: ${balanceVtx.toLocaleString()} ${VTX_MAINNET.symbol}`,
+        `\nVLTX balance: ${balanceVltx.toLocaleString()} ${VLTX_MAINNET.symbol}`,
       );
     } else {
       console.log("\nCould not fetch balance. Check manually on tonviewer.");

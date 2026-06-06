@@ -1,10 +1,10 @@
-# Voltix Wheel Token (VTX) — testnet deploy tooling
+# Voltix Wheel Token — testnet + mainnet deploy tooling
 
-Изолированный модуль для деплоя jetton **Voltix Wheel Token (VTX)** в TON testnet.
+Изолированный модуль для деплоя jetton **Voltix Wheel Token** в TON testnet (VTX) и mainnet (VLTX).
 
 **Scope:** только jetton. Без Cash Controller, Exchange и on-chain game economy.
 
-## Testnet status
+## Testnet status (VTX)
 
 | Parameter | Value |
 |-----------|-------|
@@ -20,9 +20,11 @@
 
 - Deploy и mint **не выполняются автоматически** при изменении кода.
 - Testnet master уже задеплоен — повторный deploy не нужен без отдельного решения.
+- **Deprecated mainnet VTX** (`EQCqxMdiA9u_t-u30v45CHo6wBc5zndQOP2m6wQhflB_JR1r`) — abandoned, не revoke, не менять metadata, не использовать в UI/docs.
+- Production mainnet ticker: **VLTX**.
 - Никогда не коммитьте `.env.local`, mnemonics и private keys.
 
-## Token parameters
+## Testnet token parameters (VTX)
 
 | Parameter | Value |
 |-----------|-------|
@@ -53,17 +55,25 @@ TONCENTER_API_KEY=          # optional fallback
 
 ## Metadata
 
+### Testnet (VTX)
+
 - Источник для deploy tooling: `token/metadata/jetton-metadata.json`
 - Static copy для Vercel: `public/metadata/jetton-metadata.json`
+
+### Mainnet production (VLTX)
+
+- Источник для deploy tooling: `token/metadata/vltx-jetton-metadata.json`
+- Static copy для Vercel: `public/metadata/vltx-jetton-metadata.json`
+- Metadata URL: https://voltix-wheel.vercel.app/metadata/vltx-jetton-metadata.json
+
+### Shared image
+
 - Jetton image asset: `public/jetton_image/vtx_jetton_image.png`
+- Image URL (брендовая Voltix, без переименования): https://voltix-wheel.vercel.app/jetton_image/vtx_jetton_image.png
 
-Перед реальным deploy metadata и image должны быть доступны по URL:
+Перед реальным mainnet deploy metadata и image должны быть доступны по URL на Vercel.
 
-`https://voltix-wheel.vercel.app/metadata/jetton-metadata.json`
-
-`https://voltix-wheel.vercel.app/jetton_image/vtx_jetton_image.png`
-
-## Команды (следующий этап)
+## Команды testnet
 
 Установка зависимостей:
 
@@ -107,12 +117,18 @@ npm run check:stats
 token/
   README.md
   .env.example
-  metadata/jetton-metadata.json
-  lib/config.ts
+  metadata/jetton-metadata.json          # testnet VTX
+  metadata/vltx-jetton-metadata.json     # mainnet VLTX
+  lib/config.ts                          # testnet
+  lib/mainnet-config.ts                  # mainnet VLTX
   scripts/
     deploy-jetton-testnet.ts
     mint-test-vtx.ts
     check-jetton-stats.ts
+    deploy-jetton-mainnet.ts
+    mint-mainnet-vltx.ts
+    check-mainnet-jetton-stats.ts
+    revoke-mainnet-admin.ts
 ```
 
 ## Источник паттерна
@@ -125,31 +141,33 @@ token/
 
 ECU addresses, metadata URL и private values **не копировались**.
 
-## Mainnet (planned — NOT deployed)
+## Mainnet production (VLTX — NOT deployed)
 
-**Target:** 1,000,000,000 VTX, mint once, then revoke admin.
+**Target:** 1,000,000,000 VLTX, mint once, then revoke admin.
 
 | Parameter | Value |
 |-----------|-------|
 | Status | **Not deployed** — scripts prepared only |
+| Symbol | VLTX |
 | Network | TON mainnet |
-| Supply target | 1,000,000,000 VTX |
+| Supply target | 1,000,000,000 VLTX |
 | Mint policy | mint once → revoke admin |
+| Metadata URL | https://voltix-wheel.vercel.app/metadata/vltx-jetton-metadata.json |
 
-Readiness audit: [`doc/token/VTX_MAINNET_DEPLOY_READINESS.md`](../doc/token/VTX_MAINNET_DEPLOY_READINESS.md)
+Readiness audit (historical VTX context): [`doc/token/VTX_MAINNET_DEPLOY_READINESS.md`](../doc/token/VTX_MAINNET_DEPLOY_READINESS.md)
 
 ### Mainnet env (`token/.env.local`)
 
 ```text
-VTX_MAINNET_DEPLOY_MNEMONIC=
-VTX_MAINNET_JETTON_MASTER=
+VLTX_MAINNET_DEPLOY_MNEMONIC=
+VLTX_MAINNET_JETTON_MASTER=
 TONCENTER_MAINNET_API_KEY=
-VTX_MAINNET_CONFIRM=
-VTX_REVOKE_ADMIN_CONFIRM=
+VLTX_MAINNET_CONFIRM=
+VLTX_REVOKE_ADMIN_CONFIRM=
 ```
 
-- `VTX_MAINNET_CONFIRM=YES_I_UNDERSTAND` — required for deploy/mint send
-- `VTX_REVOKE_ADMIN_CONFIRM=YES_REVOKE_IRREVERSIBLY` — required for revoke send
+- `VLTX_MAINNET_CONFIRM=YES_I_UNDERSTAND` — required for deploy/mint send
+- `VLTX_REVOKE_ADMIN_CONFIRM=YES_REVOKE_IRREVERSIBLY` — required for revoke send
 - **Separate mainnet wallet** — do not reuse testnet deploy wallet
 
 ### Mainnet sequence (each step needs explicit Yan OK)
@@ -160,14 +178,14 @@ cd token
 # 1. Prepare addresses (no tx)
 npx tsx scripts/deploy-jetton-mainnet.ts --prepare-only
 
-# 2. Deploy master (requires VTX_MAINNET_CONFIRM)
+# 2. Deploy master (requires VLTX_MAINNET_CONFIRM)
 npx tsx scripts/deploy-jetton-mainnet.ts
 
-# 3. Set VTX_MAINNET_JETTON_MASTER, then prepare mint
-npx tsx scripts/mint-mainnet-vtx.ts --prepare-only
+# 3. Set VLTX_MAINNET_JETTON_MASTER, then prepare mint
+npx tsx scripts/mint-mainnet-vltx.ts --prepare-only
 
-# 4. Mint 1B VTX (requires VTX_MAINNET_CONFIRM)
-npx tsx scripts/mint-mainnet-vtx.ts
+# 4. Mint 1B VLTX (requires VLTX_MAINNET_CONFIRM)
+npx tsx scripts/mint-mainnet-vltx.ts
 
 # 5. Verify supply/metadata/admin
 npx tsx scripts/check-mainnet-jetton-stats.ts

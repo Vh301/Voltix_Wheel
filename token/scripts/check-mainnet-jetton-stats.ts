@@ -1,6 +1,6 @@
 import { Address } from "@ton/core";
 import {
-  VTX_MAINNET,
+  VLTX_MAINNET,
   MAINNET_TONAPI,
   loadMainnetJettonMaster,
 } from "../lib/mainnet-config";
@@ -44,7 +44,7 @@ async function getJettonStats(address: string) {
 async function main() {
   const jettonMaster = loadMainnetJettonMaster();
 
-  console.log(`Check ${VTX_MAINNET.symbol} jetton master stats — TON MAINNET\n`);
+  console.log(`Check ${VLTX_MAINNET.symbol} jetton master stats — TON MAINNET\n`);
   console.log("=".repeat(60));
   console.log("\nJetton master");
   console.log("-".repeat(60));

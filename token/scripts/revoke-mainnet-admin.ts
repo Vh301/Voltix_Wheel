@@ -31,7 +31,7 @@ async function fetchAdmin(jettonMaster: string): Promise<string | null> {
 async function main() {
   const prepareOnly = isPrepareOnly();
 
-  console.log("Revoke VTX jetton admin — TON MAINNET\n");
+  console.log("Revoke VLTX jetton admin — TON MAINNET\n");
   console.log("IRREVERSIBLE: after revoke, mint and metadata updates become impossible.\n");
 
   const cleanMnemonic = loadMainnetDeployMnemonic();

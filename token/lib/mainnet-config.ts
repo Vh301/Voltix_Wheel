@@ -1,15 +1,20 @@
 import * as dotenv from "dotenv";
-import { VTX_METADATA_URL, VTX_TOKEN } from "./config";
 
 dotenv.config({ path: ".env.local" });
 
-export const VTX_MAINNET = {
-  name: VTX_TOKEN.name,
-  symbol: VTX_TOKEN.symbol,
-  decimals: VTX_TOKEN.decimals,
+export const VLTX_MAINNET = {
+  name: "Voltix Wheel Token",
+  symbol: "VLTX",
+  decimals: 9,
   mintAmount: 1_000_000_000n,
   supplyTarget: 1_000_000_000n,
 } as const;
+
+export const VLTX_METADATA_URL =
+  "https://voltix-wheel.vercel.app/metadata/vltx-jetton-metadata.json";
+
+export const VLTX_JETTON_IMAGE_URL =
+  "https://voltix-wheel.vercel.app/jetton_image/vtx_jetton_image.png";
 
 export const MAINNET_NETWORK_GLOBAL_ID = -239;
 export const MAINNET_TONAPI = "https://tonapi.io";
@@ -19,31 +24,33 @@ export const MAINNET_TONCENTER_RPC =
 export const MAINNET_CONFIRM_VALUE = "YES_I_UNDERSTAND";
 export const REVOKE_CONFIRM_VALUE = "YES_REVOKE_IRREVERSIBLY";
 
-export { VTX_METADATA_URL };
+/** Deprecated mainnet VTX master — do not use, revoke, or update metadata. */
+export const DEPRECATED_VTX_MAINNET_MASTER =
+  "EQCqxMdiA9u_t-u30v45CHo6wBc5zndQOP2m6wQhflB_JR1r";
 
 export function assertMainnetConfirm(): void {
-  if (process.env.VTX_MAINNET_CONFIRM !== MAINNET_CONFIRM_VALUE) {
+  if (process.env.VLTX_MAINNET_CONFIRM !== MAINNET_CONFIRM_VALUE) {
     throw new Error(
-      `Mainnet action blocked. Set VTX_MAINNET_CONFIRM=${MAINNET_CONFIRM_VALUE} in token/.env.local`,
+      `Mainnet action blocked. Set VLTX_MAINNET_CONFIRM=${MAINNET_CONFIRM_VALUE} in token/.env.local`,
     );
   }
 }
 
 export function assertRevokeConfirm(): void {
   assertMainnetConfirm();
-  if (process.env.VTX_REVOKE_ADMIN_CONFIRM !== REVOKE_CONFIRM_VALUE) {
+  if (process.env.VLTX_REVOKE_ADMIN_CONFIRM !== REVOKE_CONFIRM_VALUE) {
     throw new Error(
-      `Revoke blocked. Set VTX_REVOKE_ADMIN_CONFIRM=${REVOKE_CONFIRM_VALUE} in token/.env.local`,
+      `Revoke blocked. Set VLTX_REVOKE_ADMIN_CONFIRM=${REVOKE_CONFIRM_VALUE} in token/.env.local`,
     );
   }
 }
 
 export function loadMainnetDeployMnemonic(): string {
-  const mnemonic = process.env.VTX_MAINNET_DEPLOY_MNEMONIC;
+  const mnemonic = process.env.VLTX_MAINNET_DEPLOY_MNEMONIC;
 
   if (!mnemonic) {
     throw new Error(
-      "VTX_MAINNET_DEPLOY_MNEMONIC not set in token/.env.local",
+      "VLTX_MAINNET_DEPLOY_MNEMONIC not set in token/.env.local",
     );
   }
 
@@ -51,10 +58,10 @@ export function loadMainnetDeployMnemonic(): string {
 }
 
 export function loadMainnetJettonMaster(): string {
-  const master = process.env.VTX_MAINNET_JETTON_MASTER;
+  const master = process.env.VLTX_MAINNET_JETTON_MASTER;
 
   if (!master) {
-    throw new Error("VTX_MAINNET_JETTON_MASTER not set in token/.env.local");
+    throw new Error("VLTX_MAINNET_JETTON_MASTER not set in token/.env.local");
   }
 
   return master.trim();
