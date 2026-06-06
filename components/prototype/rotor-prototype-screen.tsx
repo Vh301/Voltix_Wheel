@@ -45,27 +45,18 @@ export function RotorPrototypeScreen() {
       </div>
 
       <div className="relative z-10 flex min-h-[100dvh] flex-col">
-        <header className="px-4 pt-4">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-cyan-300/80">
-            Voltix Wheel Prototype
-          </p>
-          <h1 className="mt-1 text-lg font-bold text-amber-200">
-            Reactor Rotor Test
-          </h1>
-        </header>
+        <div className="flex-1" aria-hidden />
 
-        <div className="px-4 pt-3">
+        <div className="relative space-y-2 px-3 pb-4 pt-1">
           <button
             type="button"
             onClick={simulation.reset}
-            className="w-full rounded-xl border border-amber-400/30 bg-amber-500/15 px-4 py-3 text-sm font-semibold text-amber-100 transition hover:bg-amber-500/25"
+            className="w-full rounded-xl border border-amber-400/30 bg-amber-500/15 px-4 py-2.5 text-sm font-semibold text-amber-100 transition hover:bg-amber-500/25"
           >
             Reset
           </button>
-        </div>
 
-        <div className="relative z-10 flex flex-1 flex-col justify-center px-4 py-3">
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-1.5">
             <HudStat label="Rotor speed" value={`${simulation.rpm} RPM`} />
             <HudStat
               label="Energy flow"
@@ -82,16 +73,14 @@ export function RotorPrototypeScreen() {
               value={`${simulation.angularVelocity.toFixed(2)} rad/s`}
             />
           </div>
-        </div>
 
-        <div className="relative mt-auto px-2 pb-5">
           <FlywheelGeneratorControl
             toothBeltRef={simulation.toothBeltRef}
             energyFlow={simulation.energyFlow}
             swipeHandlers={swipeHandlers}
           />
 
-          <p className="pointer-events-none relative z-10 mt-1.5 text-center text-[10px] leading-tight text-cyan-100/50">
+          <p className="pointer-events-none text-center text-[10px] leading-tight text-cyan-100/50">
             Swipe front teeth left → right · faster = stronger spin
           </p>
         </div>
