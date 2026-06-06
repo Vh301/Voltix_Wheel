@@ -1,7 +1,7 @@
 {
-  "name": "Voltix Wheel Token",
-  "symbol": "VLTX",
+  "name": "Deprecated Test Jetton",
+  "symbol": "OLD",
   "decimals": 9,
-  "description": "VLTX is the game token of the Voltix Wheel ecosystem.",
-  "image": "https://voltix-wheel.vercel.app/jetton_image/vltx_jetton_image.png"
+  "description": "Deprecated test jetton. Do not use.",
+  "image": "https://voltix-wheel.vercel.app/jetton_image/deprecated_jetton_image.png"
 }
