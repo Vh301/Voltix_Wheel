@@ -5,9 +5,9 @@ import {
   applySwipeImpulse,
   formatRpm,
   getEnergyFlow,
-  integrateAngle,
   integrateAngularVelocity,
   integratePrintedCoins,
+  integrateToothOffset,
 } from "@/lib/prototype/rotor-physics";
 
 type HudState = {
@@ -25,22 +25,22 @@ const INITIAL_HUD: HudState = {
 };
 
 type SimulationRef = {
-  angle: number;
+  toothOffset: number;
   angularVelocity: number;
   energyFlow: number;
   printedCoins: number;
 };
 
 const INITIAL_SIM: SimulationRef = {
-  angle: 0,
+  toothOffset: 0,
   angularVelocity: 0,
   energyFlow: 0,
   printedCoins: 0,
 };
 
-function applySpinTransform(element: HTMLDivElement | null, angle: number) {
+function applyBeltTransform(element: HTMLDivElement | null, offset: number) {
   if (element) {
-    element.style.transform = `rotateZ(${angle}deg)`;
+    element.style.transform = `translateX(${-offset}px)`;
   }
 }
 
@@ -48,7 +48,7 @@ export function useRotorSimulation() {
   const stateRef = useRef<SimulationRef>(INITIAL_SIM);
   const frameRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number | null>(null);
-  const spinRef = useRef<HTMLDivElement>(null);
+  const toothBeltRef = useRef<HTMLDivElement>(null);
   const [display, setDisplay] = useState<HudState>(INITIAL_HUD);
 
   const syncDisplay = useCallback(() => {
@@ -72,7 +72,11 @@ export function useRotorSimulation() {
         current.angularVelocity,
         dt,
       );
-      const angle = integrateAngle(current.angle, angularVelocity, dt);
+      const toothOffset = integrateToothOffset(
+        current.toothOffset,
+        angularVelocity,
+        dt,
+      );
       const energyFlow = getEnergyFlow(angularVelocity);
       const printedCoins = integratePrintedCoins(
         current.printedCoins,
@@ -81,13 +85,13 @@ export function useRotorSimulation() {
       );
 
       stateRef.current = {
-        angle,
+        toothOffset,
         angularVelocity,
         energyFlow,
         printedCoins,
       };
 
-      applySpinTransform(spinRef.current, angle);
+      applyBeltTransform(toothBeltRef.current, toothOffset);
 
       setDisplay({
         angularVelocity,
@@ -125,13 +129,13 @@ export function useRotorSimulation() {
   const reset = useCallback(() => {
     stateRef.current = { ...INITIAL_SIM };
     lastTimeRef.current = null;
-    applySpinTransform(spinRef.current, 0);
+    applyBeltTransform(toothBeltRef.current, 0);
     syncDisplay();
   }, [syncDisplay]);
 
   return {
     ...display,
-    spinRef,
+    toothBeltRef,
     applySwipe,
     reset,
   };

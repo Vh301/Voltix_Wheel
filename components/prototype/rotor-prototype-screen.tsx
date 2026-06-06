@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { GearFlywheel } from "@/components/prototype/gear-flywheel";
+import { FlywheelGeneratorControl } from "@/components/prototype/flywheel-generator-control";
 import { useRotorSimulation } from "@/lib/prototype/use-rotor-simulation";
 import { useSwipeImpulse } from "@/lib/prototype/use-swipe-impulse";
 
@@ -54,19 +54,14 @@ export function RotorPrototypeScreen() {
           </h1>
         </header>
 
-        <div className="relative flex flex-1 flex-col justify-end px-3 pb-2">
-          <GearFlywheel
-            spinRef={simulation.spinRef}
+        <div className="relative flex flex-1 flex-col justify-end px-2 pb-1">
+          <FlywheelGeneratorControl
+            toothBeltRef={simulation.toothBeltRef}
             energyFlow={simulation.energyFlow}
+            swipeHandlers={swipeHandlers}
           />
 
-          <div
-            className="absolute inset-x-[6%] bottom-[12%] z-20 h-32 touch-none"
-            aria-label="Swipe the gear teeth right to left"
-            {...swipeHandlers}
-          />
-
-          <p className="pointer-events-none relative z-10 mt-1 text-center text-[10px] leading-tight text-cyan-100/50">
+          <p className="pointer-events-none relative z-10 mt-1.5 text-center text-[10px] leading-tight text-cyan-100/50">
             Swipe front teeth right → left · faster = stronger spin
           </p>
         </div>

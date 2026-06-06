@@ -34,15 +34,27 @@ export function integrateAngularVelocity(velocity: number, dtSeconds: number) {
   return Math.abs(next) < ROTOR_PHYSICS.minAngularVelocity ? 0 : next;
 }
 
-export function integrateAngle(angle: number, velocity: number, dtSeconds: number) {
-  const next = angle + velocity * dtSeconds * (180 / Math.PI);
-  return wrapDisplayAngle(next);
+export const TOOTH_BELT = {
+  toothWidthPx: 20,
+  toothGapPx: 5,
+  patternWidthPx: 25,
+  /** Maps rad/s to horizontal px/s for the side-view tooth belt. */
+  pixelsPerRadianPerSecond: 54,
+} as const;
+
+export function integrateToothOffset(
+  offset: number,
+  angularVelocity: number,
+  dtSeconds: number,
+) {
+  const next =
+    offset - angularVelocity * TOOTH_BELT.pixelsPerRadianPerSecond * dtSeconds;
+  return wrapToothOffset(next, TOOTH_BELT.patternWidthPx);
 }
 
-/** Keeps CSS angle in a small range without visible discontinuity. */
-export function wrapDisplayAngle(angle: number) {
-  const wrapped = angle % 360;
-  return wrapped < 0 ? wrapped + 360 : wrapped;
+export function wrapToothOffset(offset: number, patternWidth: number) {
+  const wrapped = offset % patternWidth;
+  return wrapped < 0 ? wrapped + patternWidth : wrapped;
 }
 
 export function getEnergyFlow(angularVelocity: number) {
