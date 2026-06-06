@@ -66,10 +66,10 @@ TONCENTER_API_KEY=          # optional fallback
 - Static copy для Vercel: `public/metadata/vltx-jetton-metadata.json`
 - Metadata URL: https://voltix-wheel.vercel.app/metadata/vltx-jetton-metadata.json
 
-### Shared image
+### Shared image (VLTX production)
 
-- Jetton image asset: `public/jetton_image/vtx_jetton_image.png`
-- Image URL (брендовая Voltix, без переименования): https://voltix-wheel.vercel.app/jetton_image/vtx_jetton_image.png
+- Jetton image asset: `public/jetton_image/vltx_jetton_image.png`
+- Image URL: https://voltix-wheel.vercel.app/jetton_image/vltx_jetton_image.png
 
 Перед реальным mainnet deploy metadata и image должны быть доступны по URL на Vercel.
 

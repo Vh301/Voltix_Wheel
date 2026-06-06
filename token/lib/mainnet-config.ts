@@ -14,7 +14,7 @@ export const VLTX_METADATA_URL =
   "https://voltix-wheel.vercel.app/metadata/vltx-jetton-metadata.json";
 
 export const VLTX_JETTON_IMAGE_URL =
-  "https://voltix-wheel.vercel.app/jetton_image/vtx_jetton_image.png";
+  "https://voltix-wheel.vercel.app/jetton_image/vltx_jetton_image.png";
 
 export const MAINNET_NETWORK_GLOBAL_ID = -239;
 export const MAINNET_TONAPI = "https://tonapi.io";
