@@ -1,12 +1,25 @@
 import {
   WalletContractV5R1,
   beginCell,
+  external,
   internal,
   SendMode,
+  storeMessage,
   type MessageRelaxed,
 } from "@ton/ton";
 import type { Address } from "@ton/core";
 import type { KeyPair } from "@ton/crypto";
+
+export async function fetchWalletNeedsInit(
+  tonapiBase: string,
+  walletAddress: Address,
+): Promise<boolean> {
+  const response = await fetch(
+    `${tonapiBase}/v2/accounts/${walletAddress.toRawString()}`,
+  );
+  const data = await response.json();
+  return data.status !== "active";
+}
 
 export async function fetchWalletSeqno(
   tonapiBase: string,
@@ -25,6 +38,7 @@ export function buildSignedExternalBoc(
   keyPair: KeyPair,
   seqno: number,
   messages: MessageRelaxed[],
+  includeWalletInit = false,
 ): string {
   const transfer = wallet.createTransfer({
     seqno,
@@ -33,17 +47,14 @@ export function buildSignedExternalBoc(
     sendMode: SendMode.PAY_GAS_SEPARATELY,
   });
 
-  const externalMessage = beginCell()
-    .storeUint(0b10, 2)
-    .storeUint(0, 2)
-    .storeAddress(walletAddress)
-    .storeCoins(0)
-    .storeBit(false)
-    .storeBit(true)
-    .storeRef(transfer)
-    .endCell();
+  const msg = external({
+    to: walletAddress,
+    init: includeWalletInit && wallet.init ? wallet.init : undefined,
+    body: transfer,
+  });
 
-  return externalMessage.toBoc().toString("base64");
+  const cell = beginCell().store(storeMessage(msg)).endCell();
+  return cell.toBoc().toString("base64");
 }
 
 export async function sendExternalBoc(

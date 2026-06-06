@@ -18,6 +18,7 @@ import {
 import {
   buildSignedExternalBoc,
   createMainnetWallet,
+  fetchWalletNeedsInit,
   fetchWalletSeqno,
   sendExternalBoc,
 } from "../lib/wallet-external";
@@ -71,7 +72,12 @@ async function main() {
 
   console.log("\nGetting wallet seqno...");
   const seqno = await fetchWalletSeqno(MAINNET_TONAPI, walletAddress);
+  const includeWalletInit = await fetchWalletNeedsInit(
+    MAINNET_TONAPI,
+    walletAddress,
+  );
   console.log("Current seqno:", seqno);
+  console.log("Wallet needs init:", includeWalletInit);
 
   const deployMessage = internal({
     to: jettonMinterAddress,
@@ -89,6 +95,7 @@ async function main() {
     keyPair,
     seqno,
     [deployMessage],
+    includeWalletInit,
   );
 
   console.log("\nSending transaction via tonapi.io (mainnet)...");
