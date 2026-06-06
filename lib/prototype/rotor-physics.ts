@@ -35,7 +35,14 @@ export function integrateAngularVelocity(velocity: number, dtSeconds: number) {
 }
 
 export function integrateAngle(angle: number, velocity: number, dtSeconds: number) {
-  return angle + velocity * dtSeconds * (180 / Math.PI);
+  const next = angle + velocity * dtSeconds * (180 / Math.PI);
+  return wrapDisplayAngle(next);
+}
+
+/** Keeps CSS angle in a small range without visible discontinuity. */
+export function wrapDisplayAngle(angle: number) {
+  const wrapped = angle % 360;
+  return wrapped < 0 ? wrapped + 360 : wrapped;
 }
 
 export function getEnergyFlow(angularVelocity: number) {

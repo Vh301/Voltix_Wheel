@@ -1,12 +1,13 @@
+import type { RefObject } from "react";
+
 type GearFlywheelProps = {
-  angle: number;
+  spinRef: RefObject<HTMLDivElement | null>;
   energyFlow: number;
 };
 
 const TOOTH_COUNT = 20;
 
-export function GearFlywheel({ angle, energyFlow }: GearFlywheelProps) {
-  const glow = 0.15 + energyFlow * 0.85;
+export function GearFlywheel({ spinRef, energyFlow }: GearFlywheelProps) {
   const plasmaOpacity = 0.35 + energyFlow * 0.65;
 
   return (
@@ -19,18 +20,14 @@ export function GearFlywheel({ angle, energyFlow }: GearFlywheelProps) {
         }}
       >
         <div
-          className="absolute inset-0"
+          ref={spinRef}
+          className="absolute inset-0 will-change-transform"
           style={{
-            transform: `rotateZ(${angle}deg)`,
+            transform: "rotateZ(0deg)",
             transformStyle: "preserve-3d",
           }}
         >
-          <div
-            className="absolute inset-0 rounded-full"
-            style={{
-              filter: `drop-shadow(0 0 ${18 + energyFlow * 36}px rgba(34,211,238,${glow * 0.55})) drop-shadow(0 12px 28px rgba(0,0,0,0.65))`,
-            }}
-          >
+          <div className="absolute inset-0 rounded-full">
             {Array.from({ length: TOOTH_COUNT }).map((_, index) => (
               <div
                 key={index}
@@ -56,7 +53,7 @@ export function GearFlywheel({ angle, energyFlow }: GearFlywheelProps) {
               </div>
 
               <div
-                className="absolute inset-[22%] rounded-full border border-cyan-400/35 bg-gradient-to-b from-cyan-400/25 via-blue-950/90 to-black transition-opacity duration-150"
+                className="absolute inset-[22%] rounded-full border border-cyan-400/35 bg-gradient-to-b from-cyan-400/25 via-blue-950/90 to-black"
                 style={{
                   opacity: plasmaOpacity,
                   boxShadow: `0 0 ${12 + energyFlow * 28}px rgba(34,211,238,${0.35 + energyFlow * 0.45}), inset 0 0 ${8 + energyFlow * 16}px rgba(56,189,248,${0.25 + energyFlow * 0.35})`,
@@ -76,11 +73,11 @@ export function GearFlywheel({ angle, energyFlow }: GearFlywheelProps) {
       </div>
 
       <div
-        className="absolute inset-x-[10%] bottom-2 h-6 rounded-full bg-cyan-400/25 blur-xl transition-opacity duration-200"
+        className="absolute inset-x-[10%] bottom-2 h-6 rounded-full bg-cyan-400/25 blur-xl"
         style={{ opacity: 0.15 + energyFlow * 0.85 }}
       />
       <div
-        className="absolute inset-x-[18%] bottom-5 h-3 rounded-full bg-cyan-300/20 blur-md transition-opacity duration-200"
+        className="absolute inset-x-[18%] bottom-5 h-3 rounded-full bg-cyan-300/20 blur-md"
         style={{ opacity: 0.1 + energyFlow * 0.7 }}
       />
     </div>

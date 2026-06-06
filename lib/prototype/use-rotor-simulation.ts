@@ -10,32 +10,50 @@ import {
   integratePrintedCoins,
 } from "@/lib/prototype/rotor-physics";
 
-type SimulationState = {
-  angle: number;
+type HudState = {
   angularVelocity: number;
   energyFlow: number;
   printedCoins: number;
   rpm: string;
 };
 
-const INITIAL_STATE: SimulationState = {
-  angle: 0,
+const INITIAL_HUD: HudState = {
   angularVelocity: 0,
   energyFlow: 0,
   printedCoins: 0,
   rpm: "0",
 };
 
+type SimulationRef = {
+  angle: number;
+  angularVelocity: number;
+  energyFlow: number;
+  printedCoins: number;
+};
+
+const INITIAL_SIM: SimulationRef = {
+  angle: 0,
+  angularVelocity: 0,
+  energyFlow: 0,
+  printedCoins: 0,
+};
+
+function applySpinTransform(element: HTMLDivElement | null, angle: number) {
+  if (element) {
+    element.style.transform = `rotateZ(${angle}deg)`;
+  }
+}
+
 export function useRotorSimulation() {
-  const stateRef = useRef(INITIAL_STATE);
+  const stateRef = useRef<SimulationRef>(INITIAL_SIM);
   const frameRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number | null>(null);
-  const [display, setDisplay] = useState<SimulationState>(INITIAL_STATE);
+  const spinRef = useRef<HTMLDivElement>(null);
+  const [display, setDisplay] = useState<HudState>(INITIAL_HUD);
 
   const syncDisplay = useCallback(() => {
     const s = stateRef.current;
     setDisplay({
-      angle: s.angle,
       angularVelocity: s.angularVelocity,
       energyFlow: s.energyFlow,
       printedCoins: s.printedCoins,
@@ -67,11 +85,11 @@ export function useRotorSimulation() {
         angularVelocity,
         energyFlow,
         printedCoins,
-        rpm: formatRpm(angularVelocity),
       };
 
+      applySpinTransform(spinRef.current, angle);
+
       setDisplay({
-        angle,
         angularVelocity,
         energyFlow,
         printedCoins,
@@ -105,14 +123,16 @@ export function useRotorSimulation() {
   );
 
   const reset = useCallback(() => {
-    stateRef.current = { ...INITIAL_STATE };
+    stateRef.current = { ...INITIAL_SIM };
     lastTimeRef.current = null;
+    applySpinTransform(spinRef.current, 0);
     syncDisplay();
   }, [syncDisplay]);
 
   return {
     ...display,
+    spinRef,
     applySwipe,
     reset,
   };
-}
+};

@@ -56,7 +56,7 @@ export function RotorPrototypeScreen() {
 
         <div className="relative flex flex-1 flex-col justify-end px-3 pb-2">
           <GearFlywheel
-            angle={simulation.angle}
+            spinRef={simulation.spinRef}
             energyFlow={simulation.energyFlow}
           />
 
