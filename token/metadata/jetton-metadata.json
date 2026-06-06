@@ -1,0 +1,7 @@
+{
+  "name": "Voltix Wheel Token",
+  "symbol": "VTX",
+  "decimals": 9,
+  "description": "VTX is the game token of the Voltix Wheel ecosystem.",
+  "image": "https://voltix-wheel.vercel.app/jetton_image/vtx_jetton_image.png"
+}

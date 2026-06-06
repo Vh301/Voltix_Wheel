@@ -1,0 +1,26 @@
+{
+  "name": "voltix-wheel-token",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy:testnet": "tsx scripts/deploy-jetton-testnet.ts",
+    "deploy:testnet:prepare": "tsx scripts/deploy-jetton-testnet.ts --prepare-only",
+    "mint:testnet": "tsx scripts/mint-test-vtx.ts",
+    "mint:testnet:prepare": "tsx scripts/mint-test-vtx.ts --prepare-only",
+    "check:stats": "tsx scripts/check-jetton-stats.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ton-community/assets-sdk": "^0.0.5",
+    "@ton/core": "^0.63.0",
+    "@ton/crypto": "3.3.0",
+    "@ton/ton": "^16.1.0",
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "tsx": "^4.21.0",
+    "typescript": "^5"
+  }
+}
