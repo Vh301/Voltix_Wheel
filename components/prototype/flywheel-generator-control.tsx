@@ -76,6 +76,43 @@ function GearPitch() {
   );
 }
 
+function RotorLed({
+  energyFlow,
+  side,
+}: {
+  energyFlow: number;
+  side: "left" | "right";
+}) {
+  const active = energyFlow > 0.01;
+  const blinkDuration = `${Math.max(0.1, 1.05 - energyFlow * 0.92)}s`;
+  const isLeft = side === "left";
+
+  return (
+    <div
+      className={`pointer-events-none absolute top-1/2 z-20 -translate-y-1/2 rounded-sm border border-zinc-600/70 bg-gradient-to-b from-zinc-800 to-zinc-950 p-1 shadow-[inset_0_2px_6px_rgba(0,0,0,0.65)] ${
+        isLeft ? "right-1" : "left-1"
+      }`}
+    >
+      <div
+        className="h-3 w-3 rounded-full ring-1 ring-emerald-400/30"
+        style={{
+          animation: active
+            ? `rotor-led-pulse ${blinkDuration} ease-in-out infinite`
+            : "none",
+          animationDelay: isLeft ? "0s" : `calc(${blinkDuration} / 2)`,
+          opacity: active ? 0.55 + energyFlow * 0.45 : 0.18,
+          background: active
+            ? `radial-gradient(circle at 32% 28%, rgba(167,243,208,${0.95}) 0%, rgba(52,211,153,${0.85 + energyFlow * 0.15}) 38%, rgba(5,150,105,${0.75 + energyFlow * 0.2}) 72%, rgba(6,78,59,0.95) 100%)`
+            : "radial-gradient(circle, rgba(6,78,59,0.55) 0%, rgba(2,44,34,0.9) 100%)",
+          boxShadow: active
+            ? `0 0 ${6 + energyFlow * 16}px rgba(52,211,153,${0.65 + energyFlow * 0.35}), 0 0 ${2 + energyFlow * 6}px rgba(167,243,208,${0.5 + energyFlow * 0.4})`
+            : "inset 0 0 4px rgba(0,0,0,0.6)",
+        }}
+      />
+    </div>
+  );
+}
+
 function SideModule({
   side,
   energyFlow,
@@ -94,12 +131,14 @@ function SideModule({
     >
       <div className="absolute inset-y-0.5 inset-x-0 overflow-hidden rounded-[inherit] border border-zinc-500/50 bg-gradient-to-br from-zinc-600/90 via-zinc-900 to-black shadow-[inset_0_2px_8px_rgba(255,255,255,0.06),inset_0_-6px_12px_rgba(0,0,0,0.65)]" />
 
+      <RotorLed energyFlow={energyFlow} side={side} />
+
       <div
         className={`pointer-events-none absolute inset-y-2 ${isLeft ? "left-1" : "right-1"} w-px bg-gradient-to-b from-transparent via-cyan-400/50 to-transparent`}
         style={{ opacity: 0.35 + energyFlow * 0.55 }}
       />
 
-      <div className="absolute inset-y-2.5 left-1/2 w-[62%] -translate-x-1/2 overflow-hidden rounded-md border border-amber-600/40 bg-gradient-to-b from-amber-400/20 via-amber-950/90 to-zinc-950 shadow-inner">
+      <div className="absolute inset-y-2.5 left-1/2 w-[52%] -translate-x-1/2 overflow-hidden rounded-md border border-amber-600/40 bg-gradient-to-b from-amber-400/20 via-amber-950/90 to-zinc-950 shadow-inner">
         {Array.from({ length: 7 }).map((_, index) => (
           <div
             key={index}
@@ -151,45 +190,6 @@ function VentGrille({ className }: { className: string }) {
           className="h-2 w-0.5 rounded-full bg-zinc-800/90 shadow-[inset_0_0_2px_rgba(0,0,0,0.8)]"
         />
       ))}
-    </div>
-  );
-}
-
-function RotorLed({
-  energyFlow,
-  side,
-}: {
-  energyFlow: number;
-  side: "left" | "right";
-}) {
-  const active = energyFlow > 0.01;
-  const blinkDuration = `${Math.max(0.1, 1.05 - energyFlow * 0.92)}s`;
-  const isLeft = side === "left";
-
-  return (
-    <div
-      className={`pointer-events-none absolute top-1/2 z-[25] -translate-y-1/2 ${
-        isLeft ? "-left-2" : "-right-2"
-      }`}
-    >
-      <div className="rounded-sm border border-zinc-600/80 bg-gradient-to-b from-zinc-700 to-zinc-950 p-[3px] shadow-inner">
-        <div
-          className="h-2.5 w-2.5 rounded-full bg-cyan-950/80 ring-1 ring-cyan-500/20"
-          style={{
-            animation: active
-              ? `rotor-led-pulse ${blinkDuration} ease-in-out infinite`
-              : "none",
-            animationDelay: isLeft ? "0s" : `calc(${blinkDuration} / 2)`,
-            opacity: active ? 0.35 + energyFlow * 0.65 : 0.12,
-            background: active
-              ? `radial-gradient(circle at 35% 30%, rgba(186,230,253,${0.5 + energyFlow * 0.5}) 0%, rgba(34,211,238,${0.25 + energyFlow * 0.45}) 45%, rgba(8,47,73,0.95) 100%)`
-              : "radial-gradient(circle, rgba(15,23,42,0.95) 0%, rgba(8,47,73,0.8) 100%)",
-            boxShadow: active
-              ? `0 0 ${3 + energyFlow * 12}px rgba(34,211,238,${0.25 + energyFlow * 0.55})`
-              : "none",
-          }}
-        />
-      </div>
     </div>
   );
 }
@@ -253,10 +253,7 @@ export function FlywheelGeneratorControl({
           <div className="energy-side-modules relative flex h-[4.85rem] items-stretch px-1.5 pb-2.5 pt-3">
             <SideModule side="left" energyFlow={energyFlow} />
 
-            <div className="flywheel-window relative mx-1 min-w-0 flex-[1_1_72%] overflow-visible rounded-md border-2 border-zinc-600/80 bg-black shadow-[inset_0_0_0_1px_rgba(34,211,238,0.12),inset_0_6px_20px_rgba(0,0,0,0.9)]">
-              <RotorLed energyFlow={energyFlow} side="left" />
-              <RotorLed energyFlow={energyFlow} side="right" />
-
+            <div className="flywheel-window relative mx-1 min-w-0 flex-[1_1_72%] overflow-hidden rounded-md border-2 border-zinc-600/80 bg-black shadow-[inset_0_0_0_1px_rgba(34,211,238,0.12),inset_0_6px_20px_rgba(0,0,0,0.9)]">
               <div className="pointer-events-none absolute inset-0 z-[15] overflow-hidden rounded-[inherit] ring-1 ring-inset ring-cyan-400/15" />
               <div
                 className="pointer-events-none absolute left-1.5 top-1.5 z-[15] h-1 w-1 rounded-full bg-cyan-400/80"
