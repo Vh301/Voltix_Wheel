@@ -18,7 +18,7 @@ Deploy → Mint 1,000,000 VLTX → CloseMinting → ChangeOwner(null) → Emulat
 After `CloseMinting`, `get_jetton_data().mintable` is **0 / false** and Tonviewer shows **Mintable: NO**.  
 After `ChangeOwner(null)`, admin operations are rejected (emulation only — no further on-chain txs).
 
-**Mainnet:** not executed. Mainnet deploy is **blocked** until a permanent assets domain is approved (see [Mainnet blocker](#mainnet-blocker)).
+**Mainnet:** not executed. Mainnet metadata host is ready via git tag `vltx-v2-mainnet-metadata` (see [Mainnet metadata hosting](#mainnet-metadata-hosting)). On-chain deploy still requires explicit Yan OK per step.
 
 ---
 
@@ -182,15 +182,16 @@ Mainnet sequence must be:
 
 ---
 
-## Mainnet blocker
+## Mainnet metadata hosting
 
-```text
-Before mainnet v2 deploy, metadata/image URLs must use a permanent assets domain, not vercel.app.
-Mainnet deploy is blocked until final metadata host is approved.
-```
+Testnet proof used Vercel URLs (historical). Mainnet metadata is pinned separately:
 
-Current testnet metadata uses `voltix-wheel.vercel.app` — acceptable for testnet proof only.  
-Production mainnet metadata/image URLs **must not** depend on preview deployment domains.
+| Asset | URL |
+|-------|-----|
+| Metadata JSON | `https://raw.githubusercontent.com/Vh301/Voltix_Wheel/vltx-v2-mainnet-metadata/public/metadata/vltx-v2-jetton-metadata.json` |
+| Jetton image | `https://raw.githubusercontent.com/Vh301/Voltix_Wheel/vltx-v2-mainnet-metadata/public/jetton_image/vltx_jetton_image.png` |
+
+Git tag: `vltx-v2-mainnet-metadata` on public repo `Vh301/Voltix_Wheel`. No Vercel, no branch `main` URL for mainnet deploy.
 
 ---
 

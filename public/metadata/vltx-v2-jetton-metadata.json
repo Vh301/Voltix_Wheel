@@ -3,5 +3,5 @@
   "symbol": "VLTX",
   "decimals": 9,
   "description": "VLTX is the fixed-supply game token of the Voltix Wheel ecosystem.",
-  "image": "https://voltix-wheel.vercel.app/jetton_image/vltx_jetton_image.png"
+  "image": "https://raw.githubusercontent.com/Vh301/Voltix_Wheel/vltx-v2-mainnet-metadata/public/jetton_image/vltx_jetton_image.png"
 }

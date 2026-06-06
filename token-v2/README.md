@@ -42,7 +42,14 @@ Vendored from [`tact-lang/jetton`](https://github.com/tact-lang/jetton) **base**
 | File | URL |
 |------|-----|
 | `metadata/vltx-v2-jetton-metadata.json` | source copy |
-| `public/metadata/vltx-v2-jetton-metadata.json` | Vercel static (testnet) |
+| `public/metadata/vltx-v2-jetton-metadata.json` | pinned via git tag `vltx-v2-mainnet-metadata` |
+
+**Mainnet metadata (raw GitHub, tag-pinned):**
+
+```text
+https://raw.githubusercontent.com/Vh301/Voltix_Wheel/vltx-v2-mainnet-metadata/public/metadata/vltx-v2-jetton-metadata.json
+https://raw.githubusercontent.com/Vh301/Voltix_Wheel/vltx-v2-mainnet-metadata/public/jetton_image/vltx_jetton_image.png
+```
 
 **Do not use** `vltx-jetton-metadata.json` — deprecated stub for old master.
 
@@ -80,14 +87,11 @@ npm run emulate:after-owner-null    # Step 6 — no on-chain tx
 
 Testnet used 1,000,000 VLTX for cost control; mainnet uses full 1B supply.
 
-## Mainnet blocker
+## Mainnet metadata hosting
 
-```text
-Before mainnet v2 deploy, metadata/image URLs must use a permanent assets domain, not vercel.app.
-Mainnet deploy is blocked until final metadata host is approved.
-```
+Mainnet metadata/image use **raw GitHub** from public repo `Vh301/Voltix_Wheel`, pinned by tag `vltx-v2-mainnet-metadata` — not Vercel, not branch `main`.
 
-Do not deploy mainnet until Yan approves the final metadata host.
+Mainnet deploy is still blocked until explicit Yan OK per deploy step (on-chain only).
 
 ## Audit
 
