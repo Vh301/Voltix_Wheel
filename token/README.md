@@ -124,3 +124,58 @@ token/
 - `scripts/check-jetton-stats.ts`
 
 ECU addresses, metadata URL и private values **не копировались**.
+
+## Mainnet (planned — NOT deployed)
+
+**Target:** 1,000,000,000 VTX, mint once, then revoke admin.
+
+| Parameter | Value |
+|-----------|-------|
+| Status | **Not deployed** — scripts prepared only |
+| Network | TON mainnet |
+| Supply target | 1,000,000,000 VTX |
+| Mint policy | mint once → revoke admin |
+
+Readiness audit: [`doc/token/VTX_MAINNET_DEPLOY_READINESS.md`](../doc/token/VTX_MAINNET_DEPLOY_READINESS.md)
+
+### Mainnet env (`token/.env.local`)
+
+```text
+VTX_MAINNET_DEPLOY_MNEMONIC=
+VTX_MAINNET_JETTON_MASTER=
+TONCENTER_MAINNET_API_KEY=
+VTX_MAINNET_CONFIRM=
+VTX_REVOKE_ADMIN_CONFIRM=
+```
+
+- `VTX_MAINNET_CONFIRM=YES_I_UNDERSTAND` — required for deploy/mint send
+- `VTX_REVOKE_ADMIN_CONFIRM=YES_REVOKE_IRREVERSIBLY` — required for revoke send
+- **Separate mainnet wallet** — do not reuse testnet deploy wallet
+
+### Mainnet sequence (each step needs explicit Yan OK)
+
+```bash
+cd token
+
+# 1. Prepare addresses (no tx)
+npx tsx scripts/deploy-jetton-mainnet.ts --prepare-only
+
+# 2. Deploy master (requires VTX_MAINNET_CONFIRM)
+npx tsx scripts/deploy-jetton-mainnet.ts
+
+# 3. Set VTX_MAINNET_JETTON_MASTER, then prepare mint
+npx tsx scripts/mint-mainnet-vtx.ts --prepare-only
+
+# 4. Mint 1B VTX (requires VTX_MAINNET_CONFIRM)
+npx tsx scripts/mint-mainnet-vtx.ts
+
+# 5. Verify supply/metadata/admin
+npx tsx scripts/check-mainnet-jetton-stats.ts
+
+# 6. Revoke admin (requires BOTH confirm flags)
+npx tsx scripts/revoke-mainnet-admin.ts --prepare-only
+npx tsx scripts/revoke-mainnet-admin.ts
+
+# 7. Verify admin revoked
+npx tsx scripts/check-mainnet-jetton-stats.ts
+```

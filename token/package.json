@@ -9,6 +9,13 @@
     "mint:testnet": "tsx scripts/mint-test-vtx.ts",
     "mint:testnet:prepare": "tsx scripts/mint-test-vtx.ts --prepare-only",
     "check:stats": "tsx scripts/check-jetton-stats.ts",
+    "deploy:mainnet:prepare": "tsx scripts/deploy-jetton-mainnet.ts --prepare-only",
+    "deploy:mainnet": "tsx scripts/deploy-jetton-mainnet.ts",
+    "mint:mainnet:prepare": "tsx scripts/mint-mainnet-vtx.ts --prepare-only",
+    "mint:mainnet": "tsx scripts/mint-mainnet-vtx.ts",
+    "check:mainnet:stats": "tsx scripts/check-mainnet-jetton-stats.ts",
+    "revoke:mainnet:prepare": "tsx scripts/revoke-mainnet-admin.ts --prepare-only",
+    "revoke:mainnet": "tsx scripts/revoke-mainnet-admin.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
