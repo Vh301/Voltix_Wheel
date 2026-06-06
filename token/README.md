@@ -4,10 +4,22 @@
 
 **Scope:** только jetton. Без Cash Controller, Exchange и on-chain game economy.
 
+## Testnet status
+
+| Parameter | Value |
+|-----------|-------|
+| Status | **Deployed on testnet** (master + initial mint) |
+| Jetton master | `EQAX_evrbU5GgQa91KOZS3wjcxCGyc6fcnY6U7CQhY8RUsU2` |
+| Admin wallet | `0QBbEep4YB5I7MB_6gAfplVR79wvUG8emX5xeuZU5G-z3N8o` |
+| Total supply | 1,000,000 VTX |
+| Tonviewer (master) | https://testnet.tonviewer.com/EQAX_evrbU5GgQa91KOZS3wjcxCGyc6fcnY6U7CQhY8RUsU2 |
+
+Полный отчёт: [`doc/token/VTX_TESTNET_DEPLOY_REPORT.md`](../doc/token/VTX_TESTNET_DEPLOY_REPORT.md)
+
 ## Важно
 
-- Deploy и mint **не выполняются автоматически**.
-- Реальный testnet deploy — **только после явного разрешения Яна**.
+- Deploy и mint **не выполняются автоматически** при изменении кода.
+- Testnet master уже задеплоен — повторный deploy не нужен без отдельного решения.
 - Никогда не коммитьте `.env.local`, mnemonics и private keys.
 
 ## Token parameters
